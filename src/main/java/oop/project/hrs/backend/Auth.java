@@ -5,6 +5,9 @@ public class Auth {
         if (Database.usernames.contains(username)) { //Check if username is taken
             throw new ProjectExceptions.UsernameTakenException(username);
         }
+        if (password.length() <= 8) {
+            throw new ProjectExceptions.InvalidPasswordException();
+        }
         Database.usernames.add(username);
         switch (role) { //Switch ArrayList based on role
             case GUEST:

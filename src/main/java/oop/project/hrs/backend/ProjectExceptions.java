@@ -7,7 +7,12 @@ public class ProjectExceptions {
     }
     public static class UsernameTakenException extends BaseException {
         public UsernameTakenException(String username) {
-            super("The username '" + username + "' is already in use.");
+            super("The username '" + username + "' is already in use!");
+        }
+    }
+    public static class InvalidPasswordException extends BaseException {
+        public InvalidPasswordException() {
+            super("Entered password doesn't meet requirements!");
         }
     }
 }
