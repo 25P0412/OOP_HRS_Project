@@ -1,0 +1,13 @@
+package oop.project.hrs.backend;
+public class ProjectExceptions {
+    public static class BaseException extends RuntimeException {
+        public BaseException(String message) {
+            super(message);
+        }
+    }
+    public static class UsernameTakenException extends BaseException {
+        public UsernameTakenException(String username) {
+            super("The username '" + username + "' is already in use.");
+        }
+    }
+}
