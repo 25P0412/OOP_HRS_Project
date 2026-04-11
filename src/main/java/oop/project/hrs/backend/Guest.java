@@ -3,12 +3,6 @@ package oop.project.hrs.backend;
 import java.time.LocalDate;
 //Public class Guest extends User
 public class Guest {
-    public enum Gender {
-        MALE,
-        FEMALE,
-        OTHER,
-        PREFER_NOT_TO_SAY
-    };
     private String username;
     private String password; //Can't be empty, 8 characters at least
     private LocalDate dateOfBirth;
@@ -16,12 +10,9 @@ public class Guest {
     private String address;
     private Gender gender;
     //Waiting for roomPreferences it to be implemented
-    public Guest(String username, String password, LocalDate dateOfBirth, double balance, String address, Gender gender) {
+    public Guest(String username, String password, Gender gender) {
         this.username = username;
         this.password = password;
-        this.dateOfBirth = dateOfBirth;
-        this.balance = balance;
-        this.address = address;
         this.gender = gender;
     }
     //Write login and register methods after db, write an exception too if username is taken.
