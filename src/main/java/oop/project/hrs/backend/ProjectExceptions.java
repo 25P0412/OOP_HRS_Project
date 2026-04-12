@@ -1,4 +1,4 @@
-package oop.project.hrs.backend;
+package main.java.oop.project.hrs.backend;
 public class ProjectExceptions {
     public static class BaseException extends RuntimeException {
         public BaseException(String message) {

@@ -1,4 +1,4 @@
-package oop.project.hrs.backend;
+package main.java.oop.project.hrs.backend;
 
 public enum Gender {
     MALE,

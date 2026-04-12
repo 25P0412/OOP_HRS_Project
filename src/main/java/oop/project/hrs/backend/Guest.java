@@ -1,5 +1,4 @@
-package oop.project.hrs.backend;
-
+package main.java.oop.project.hrs.backend;
 import java.time.LocalDate;
 //Public class Guest extends User
 public class Guest {
