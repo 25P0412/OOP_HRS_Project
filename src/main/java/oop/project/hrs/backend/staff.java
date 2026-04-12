@@ -1,13 +1,14 @@
+package oop.project.hrs.backend;
 import java.time.LocalDate;
 
 public abstract class staff {
     private Role role;
     private String username;
-    private int pass;
+    private String password; // FIX: Changed data type to string, changed var name to password for better integration
     private LocalDate dateofbirth;
     private int workinghours;
 
-    public staff(Role role, String username, int pass, LocalDate dateofbirth, int workinghours) {
+    public staff(Role role, String username, String password, LocalDate dateofbirth, int workinghours) {
         this.role = role;
         this.username = username;
         this.pass = pass;
