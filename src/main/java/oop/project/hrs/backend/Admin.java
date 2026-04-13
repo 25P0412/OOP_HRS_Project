@@ -1,9 +1,8 @@
-package main.java.oop.project.hrs.backend;
-import javax.management.relation.Role;
+package oop.project.hrs.backend;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-    public class Admin extends staff {
+public class Admin extends Staff {
 
         public Admin(String username, String password, Role role, LocalDate dateOfBirth, int workinghours) {
             super(role, username, password, dateOfBirth, workinghours);
