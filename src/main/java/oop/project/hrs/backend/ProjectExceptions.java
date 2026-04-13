@@ -1,4 +1,4 @@
-package main.java.oop.project.hrs.backend;
+package oop.project.hrs.backend;
 public class ProjectExceptions {
     public static class BaseException extends RuntimeException {
         public BaseException(String message) {
@@ -13,6 +13,11 @@ public class ProjectExceptions {
     public static class InvalidPasswordException extends BaseException {
         public InvalidPasswordException() {
             super("Entered password doesn't meet requirements!");
+        }
+    }
+    public static class InvalidLoginException extends BaseException {
+        public InvalidLoginException() {
+            super("Username or Password is invalid!");
         }
     }
 }
