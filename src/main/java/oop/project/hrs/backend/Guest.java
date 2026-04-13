@@ -1,4 +1,4 @@
-package main.java.oop.project.hrs.backend;
+package oop.project.hrs.backend;
 import java.time.LocalDate;
 //Public class Guest extends User
 public class Guest {
@@ -8,13 +8,15 @@ public class Guest {
     private double balance;
     private String address;
     private Gender gender;
-    //Waiting for roomPreferences it to be implemented
-    public Guest(String username, String password, Gender gender) {
+    //Waiting for roomPreferences to be implemented
+    public Guest(String username, String password, Gender gender, LocalDate dateOfBirth, double balance, String address) {
         this.username = username;
         this.password = password;
         this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.balance = balance;
+        this.address = address;
     }
-    //Write login and register methods after db, write an exception too if username is taken.
     //Getter Setter methods
     public String getUsername() {
         return username;
