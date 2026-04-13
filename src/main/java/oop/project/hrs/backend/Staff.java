@@ -1,14 +1,15 @@
-package main.java.oop.project.hrs.backend;
-import javax.management.relation.Role;
+package oop.project.hrs.backend;
 import java.time.LocalDate;
 import java.util.ArrayList;
-public abstract class staff {
+import java.util.List;
+
+public abstract class Staff {
     private Role role;
     private String username;
     private String password; // FIX: Changed data type to string, changed var name to password for better integration
     private LocalDate dateofbirth;
     private int workinghours;
-    public staff(Role role, String username, String password, LocalDate dateofbirth, int workinghours) {
+    public Staff(Role role, String username, String password, LocalDate dateofbirth, int workinghours) {
         this.role = role;
         this.username = username;
         this.password = password;
@@ -34,7 +35,7 @@ public abstract class staff {
         this.role = role;
     }
     public void setUsername(String username) {
-        if (Database.getUsernames().contains(username)) {
+        if (Database.usernameExists(username)) { //Changed to public method
             throw new ProjectExceptions.UsernameTakenException(username);
         }
         this.username = username;
@@ -56,8 +57,8 @@ public abstract class staff {
     public void setDateofbirth(LocalDate dateofbirth) {
         this.dateofbirth = dateofbirth;
     }
-    public void viewAllGuests() {
-        ArrayList<Guest> allGuests = Database.getGuests();
+    public void viewAllGuests() { //Will replace it with guests database
+        List<Guest> allGuests = Database.getGuests();
 
         for (Guest guest : allGuests) {
             System.out.println("Guest: " + guest.getUsername());
