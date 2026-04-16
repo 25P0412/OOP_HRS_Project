@@ -1,30 +1,34 @@
 package oop.project.hrs.backend;
 
 public abstract class Rooms {
+    private String roomType;
     private int roomNum;
     private int numOfGuests;
     private int numOfBeds;
-    private double price;
+    private double basePrice;
     private Guest guest;
 
     //Constructor
-    public Rooms (int roomNum, int numOfGuests, int numOfBeds, double price, Guest guest){
+    public Rooms (String roomType, int roomNum, int numOfGuests, int numOfBeds, double basePrice, Guest guest){
+        this.roomType=roomType;
         this.roomNum=roomNum;
         this.numOfGuests=numOfGuests;
         this.numOfBeds=numOfBeds;
-        this.price=price;
+        this.basePrice=basePrice;
         this.guest=guest;
     }
 
     //Getters and setters methods
+    public String getRoomType () {return roomType;}
+    public void setRoomType (String roomType) {this.roomType=roomType;}
     public int getRoomNum () {return roomNum;}
     public void setRoomNum (int roomNum) {this.roomNum=roomNum;}
     public int getNumOfGuests () {return numOfGuests;}
     public void setNumOfGuests (int numOfGuests) {this.numOfGuests=numOfGuests;}
     public int getNumOfBeds () {return numOfBeds;}
     public void setNumOfBeds (int numOfBeds) {this.numOfBeds=numOfBeds;}
-    public double getPrice () {return price;}
-    public void setPrice (double price) {this.price=price;}
+    public double getBasePrice () {return basePrice;}
+    public void setBasePrice(double basePrice) {this.basePrice=basePrice;}
     public Guest getGuest () {return guest;}
     public void setGuest (Guest guest) {this.guest=guest;}
 }
