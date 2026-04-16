@@ -5,10 +5,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class Database {
-
+    //Guests and usernames arrays' definition
     private static ArrayList<Guest> guests = new ArrayList<>();
     private static ArrayList<String> usernames = new ArrayList<>(); //Use this one to check if a username is taken.
-    //rest of arrays;
+
+    //All rooms' array definition
+    private static ArrayList<Rooms> allRooms = new ArrayList<>();
+
+    //Guests and usernames arrays' methods
     public static void addGuest(Guest guest) {
         guests.add(guest);
     }
@@ -37,4 +41,37 @@ public class Database {
         }
         return null;
     }
+
+    //All rooms array's methods
+    //CREATE
+    public void addRoom (Rooms newRoom){
+        allRooms.add(newRoom);
+    }
+    //READ
+    public void displayAllRooms (){
+        for (Rooms r : allRooms){
+            System.out.println ("Room #" + r.getRoomNum() + "of type" + r.getRoomType());
+        }
+    }
+    //UPDATE room number
+    public void updateRoomNum (int oldNum, int newNum){
+        for (Rooms r : allRooms){
+            if (r.getRoomNum() == oldNum){
+                r.setRoomNum(newNum);
+            }
+        }
+    }
+    //UPDATE room type
+    public void updateRoomType (int roomNum, String roomType){
+        for (Rooms r : allRooms){
+            if (r.getRoomNum() == roomNum){
+                r.setRoomType(roomType);
+            }
+        }
+    }
+    //DELETE
+    public void removeRoom (int roomNum){
+        allRooms.removeIf (r -> r.getRoomNum()== roomNum);
+    }
+
 }

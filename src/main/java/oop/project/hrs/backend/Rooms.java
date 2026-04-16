@@ -1,7 +1,9 @@
 package oop.project.hrs.backend;
 
 public abstract class Rooms {
+    //"Associated with one room type" requirement
     private String roomType;
+
     private int roomNum;
     private int numOfGuests;
     private int numOfBeds;
