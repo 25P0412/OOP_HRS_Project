@@ -13,8 +13,11 @@ public class Database {
     private static HashMap<String, Guest> guests = new HashMap<>();
     private static ArrayList<String> usernames = new ArrayList<>(); //Use this one to check if a username is taken.
 
-    //All rooms' array definition
+    //allRooms' array definition
     private static ArrayList<Rooms> allRooms = new ArrayList<>();
+
+    //HotelAmenities' array definition
+    private static ArrayList <Amenity> hotelAmenities = new ArrayList <>();
 
     //Guests and usernames arrays' methods
     public static void addGuest(String username, Guest guest) {
@@ -43,7 +46,7 @@ public class Database {
         return guests.get(username);
     }
 
-    //All rooms array's methods
+    //allRooms array's methods
     //CREATE
     public static void addRoom (Rooms newRoom){
         allRooms.add(newRoom);
@@ -75,5 +78,30 @@ public class Database {
     //DELETE
     public static void removeRoom (int roomNum){
         allRooms.removeIf (r -> r.getRoomNum()== roomNum);
+    }
+    //hotelAmenities array's methods
+    //CREATE
+    public static void addHotelAmenities (Amenity newAmenity){
+        hotelAmenities.add (newAmenity);
+    }
+    //READ
+    public static String displayHotelAmenities (){
+        StringBuilder result = new StringBuilder();
+        for (Amenity a : hotelAmenities){
+            result.append("Amenity" + a.getType() + "is of price" + a.getPrice());
+        }
+        return result.toString();
+    }
+    //UPDATE price of an Hotel Amenity
+    public static void updateHotelAmenity(double oldPrice, double newPrice){
+        for (Amenity a : hotelAmenities){
+            if (a.getPrice()==oldPrice){
+               a.setPrice(newPrice);
+            }
+        }
+    }
+    //DELETE
+    public static void deleteHotelAmenity (String type){
+        hotelAmenities.removeIf (a -> a.getType() == type);
     }
 }
