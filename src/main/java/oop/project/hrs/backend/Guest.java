@@ -1,5 +1,7 @@
 package oop.project.hrs.backend;
 import java.time.LocalDate;
+import java.util.List;
+
 //Public class Guest extends User
 public class Guest {
     private String username;
@@ -8,14 +10,16 @@ public class Guest {
     private double balance;
     private String address;
     private Gender gender;
+    private String roomPreferences;
     //Waiting for roomPreferences to be implemented
-    public Guest(String username, String password, Gender gender, LocalDate dateOfBirth, double balance, String address) {
+    public Guest(String username, String password, Gender gender, LocalDate dateOfBirth, double balance, String address, String roomPreferences) {
         this.username = username;
         this.password = password;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.balance = balance;
         this.address = address;
+        this.roomPreferences = roomPreferences;
     }
     //Getter Setter methods
     public String getUsername() {
@@ -53,5 +57,16 @@ public class Guest {
     }
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public String getRoomPreferences() {
+        return roomPreferences;
+    }
+
+    public void setRoomPreferences(String roomPreferences) {
+        this.roomPreferences = roomPreferences;
+    }
+    public String listAvailableRooms() {
+        return Database.displayAllRooms();
     }
 }
