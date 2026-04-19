@@ -24,6 +24,7 @@ public abstract class Rooms {
         this.numOfBeds=numOfBeds;
         this.basePrice=basePrice;
         this.guest=guest;
+
     }
 
     //Getters and setters methods

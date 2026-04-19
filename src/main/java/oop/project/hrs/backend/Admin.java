@@ -8,18 +8,44 @@ public class Admin extends Staff {
             super(role, username, password, dateOfBirth, workinghours);
         }
 
-        public void addRoomType() {
-            // Method to add new room
-        }
 
-        public void manageRooms() {
-            // CRUD operations on rooms
-        }
+    //  ROOMS CRUD
+    public void addNewRoom(Rooms room) {
+        Database.addRoom(room);
+    }
 
-        public void manageAmenities() {
-            // CRUD operations on hotel amenities
-        }
+    public void updateRoomNumber(int oldNum, int newNum) {
+        Database.updateRoomNum(oldNum, newNum);
+    }
 
+    public void updateRoomType(int roomNum, String roomType) {
+        Database.updateRoomType(roomNum, roomType);
+    }
+
+    public void deleteRoom(int roomNum) {
+        Database.removeRoom(roomNum);
+    }
+
+    // AMENITIES CRUD
+    public void addNewAmenity(Amenity amenity) {
+        Database.addHotelAmenities(amenity);
+    }
+
+    public void viewAllAmenities() {
+        System.out.println(Database.displayHotelAmenities());
+    }
+
+    public void updateAmenityPrice(String type, double price) {
+        Database.updatePriceOfHotelAmenity(type, price);
+    }
+
+    public void updateAmenityCount(String type, int count) {
+        Database.updateCountOfHotelAmenity(type, count);
+    }
+
+    public void deleteAmenity(String type) {
+        Database.deleteHotelAmenity(type);
+    }
 
 
 
