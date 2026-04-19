@@ -1,8 +1,13 @@
 package oop.project.hrs.backend;
 
+import java.util.ArrayList;
+
 public abstract class Rooms {
-    //"Associated with one room type" requirement
+    //"Associated with one room type" requirement.
     private String roomType;
+
+    //Each room is associated with its own amenities based on its type.
+    private ArrayList<Amenity> roomAmenities;
 
     private int roomNum;
     private int numOfGuests;
@@ -11,7 +16,8 @@ public abstract class Rooms {
     private Guest guest;
 
     //Constructor
-    public Rooms (String roomType, int roomNum, int numOfGuests, int numOfBeds, double basePrice, Guest guest){
+    public Rooms (String roomType, ArrayList <Amenity> roomAmenities, int roomNum, int numOfGuests, int numOfBeds, double basePrice, Guest guest){
+        this.roomAmenities=new ArrayList <>(roomAmenities);
         this.roomType=roomType;
         this.roomNum=roomNum;
         this.numOfGuests=numOfGuests;

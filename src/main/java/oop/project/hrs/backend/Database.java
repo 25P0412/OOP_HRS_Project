@@ -88,20 +88,28 @@ public class Database {
     public static String displayHotelAmenities (){
         StringBuilder result = new StringBuilder();
         for (Amenity a : hotelAmenities){
-            result.append("Amenity" + a.getType() + "is of price" + a.getPrice());
+            result.append("Amenity" + a.getType() + " is of price " + a.getPrice() + " and count " + a.getCount());
         }
         return result.toString();
     }
-    //UPDATE price of an Hotel Amenity
-    public static void updateHotelAmenity(double oldPrice, double newPrice){
+    //UPDATE the price of a Hotel Amenity
+    public static void updatePriceOfHotelAmenity(String type, double newPrice){
         for (Amenity a : hotelAmenities){
-            if (a.getPrice()==oldPrice){
+            if (a.getType().equalsIgnoreCase(type)){
                a.setPrice(newPrice);
+            }
+        }
+    }
+    //UPDATE the count of a Hotel Amenity
+    public static void updateCountOfHotelAmenity(String type, int newCount){
+        for (Amenity a : hotelAmenities){
+            if (a.getType().equalsIgnoreCase(type)){
+                a.setCount(newCount);
             }
         }
     }
     //DELETE
     public static void deleteHotelAmenity (String type){
-        hotelAmenities.removeIf (a -> a.getType() == type);
+        hotelAmenities.removeIf (a -> a.getType().equalsIgnoreCase(type));
     }
 }
