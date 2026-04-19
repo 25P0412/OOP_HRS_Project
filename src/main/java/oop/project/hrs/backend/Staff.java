@@ -58,10 +58,8 @@ public abstract class Staff {
         this.dateofbirth = dateofbirth;
     }
     public void viewAllGuests() { //Will replace it with guests database
-        List<Guest> allGuests = Database.getGuests();
-
-        for (Guest guest : allGuests) {
-            System.out.println("Guest: " + guest.getUsername());
+        for (String username : Database.getGuestUsernames()) {
+            System.out.println("Guest: " + username);
         }
     }
     public void viewAllReservations() {
