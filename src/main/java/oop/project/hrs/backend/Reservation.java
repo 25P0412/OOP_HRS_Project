@@ -10,6 +10,12 @@ package oop.project.hrs.backend;
         private ReservationStatus status;
 
         public Reservation(Guest guest, Rooms room, LocalDate checkIn, LocalDate checkOut) {
+            if (guest == null || room == null) {
+                throw new IllegalArgumentException("Guest and Room cannot be null");
+            }
+            if (checkInDate.isAfter(checkOutDate)) {
+                throw new IllegalArgumentException("Invalid date range");
+            }
             this.guest = guest;
             this.room = room;
             this.checkIn = checkIn;
