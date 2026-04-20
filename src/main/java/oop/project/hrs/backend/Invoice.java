@@ -4,13 +4,37 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
     public class Invoice {
+
+        private Reservation reservation;
         private double totalAmount;
-        private String paymentMethod;
+
+        private ArrayList<PaymentMethod> paymentMethods;
+
         private LocalDate paymentDate;
 
-        public Invoice(double totalAmount, String paymentMethod) {
+
+        public Invoice(Reservation reservation, double totalAmount) {
+
+            this.reservation = reservation;
             this.totalAmount = totalAmount;
-            this.paymentMethod = paymentMethod;
-            this.paymentDate = LocalDate.now();
+
+            this.paymentMethods = new ArrayList<>();
         }
-}
+        //Getters
+
+        public Reservation getReservation() {
+            return reservation;
+        }
+
+        public double getTotalAmount() {
+            return totalAmount;
+        }
+
+        public ArrayList<PaymentMethod> getPaymentMethods() {
+            return paymentMethods;
+        }
+
+        public LocalDate getPaymentDate() {
+            return paymentDate;
+        }
+    }
