@@ -1,15 +1,15 @@
-package main.java.oop.project.hrs.backend;
+package oop.project.hrs.backend;
 
     import java.time.LocalDate;
 
     public class Reservation {
         private Guest guest;
-        private Room room;
+        private Rooms room;
         private LocalDate checkIn;
         private LocalDate checkOut;
         private ReservationStatus status;
 
-        public Reservation(Guest guest, Room room, LocalDate checkIn, LocalDate checkOut) {
+        public Reservation(Guest guest, Rooms room, LocalDate checkIn, LocalDate checkOut) {
             this.guest = guest;
             this.room = room;
             this.checkIn = checkIn;
@@ -24,10 +24,10 @@ package main.java.oop.project.hrs.backend;
             this.guest = guest;
         }
 
-        public Room getRoom() {
+        public Rooms getRoom() {
             return room;
         }
-        public void setRoom(Room room) {
+        public void setRoom(Rooms room) {
             this.room = room;
         }
 

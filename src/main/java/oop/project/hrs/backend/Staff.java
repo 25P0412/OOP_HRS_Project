@@ -57,17 +57,34 @@ public abstract class Staff {
     public void setDateofbirth(LocalDate dateofbirth) {
         this.dateofbirth = dateofbirth;
     }
-    public void viewAllGuests() { //Will replace it with guests database
-        List<Guest> allGuests = Database.getGuests();
+    public void viewAllGuests() {
+        Set<String> allUsernames = Database.getGuestUsernames();
 
-        for (Guest guest : allGuests) {
-            System.out.println("Guest: " + guest.getUsername());
+        System.out.println("    Total Guests List    ");
+        for (String name : allUsernames) {
+            Guest guestInfo = Database.getGuestByUsername(name);
+            if (guestInfo != null) {
+                System.out.println("Username: " + guestInfo.getUsername());
+                System.out.println("Balance: " + guestInfo.getBalance());
+                System.out.println("Address: " + guestInfo.getAddress());
+                System.out.println("Gender: " + guestInfo.getGender());
+                System.out.println("                     ");
+            }
         }
+    }
     }
     public void viewAllReservations() {
         // Logic to display all reservations from Database
     }
-    public void viewRoomStatus() {
+    public void viewallrooms() {
+// Method to display ALL rooms currently in the database
 
+            System.out.println(" All Hotel Rooms ");
+            for (Rooms r : Database.allRooms) {
+                System.out.println("Room #" + r.getRoomNum() +
+                        " | Type: " + r.getRoomType() +
+                        " | Price: " + r.getBasePrice());
+
+        }
     }
 }
