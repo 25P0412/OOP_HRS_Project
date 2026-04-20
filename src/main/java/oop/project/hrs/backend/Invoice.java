@@ -9,9 +9,9 @@ import java.util.ArrayList;
         private double totalAmount;
 
         private ArrayList<PaymentMethod> paymentMethods;
-
+        private double paidAmount;
         private LocalDate paymentDate;
-
+        private boolean isPaid;
 
         public Invoice(Reservation reservation, double totalAmount) {
 
@@ -24,9 +24,23 @@ import java.util.ArrayList;
             }
 
             this.reservation = reservation;
-            this.totalAmount = totalAmount;
+            // base price from room
+            this.totalAmount = reservation.getRoom().getBasePrice();
 
             this.paymentMethods = new ArrayList<>();
+            this.paidAmount = 0;
+            this.isPaid = false;
+        }
+        public void addPayment(double amount, PaymentMethod method) {
+            paidAmount += amount;
+            paymentMethods.add(method);
+
+            paymentDate = LocalDate.now();
+
+            if (paidAmount == totalAmount) {
+                isPaid = true;
+                reservation.complete();
+            }
         }
         //Getters
 
