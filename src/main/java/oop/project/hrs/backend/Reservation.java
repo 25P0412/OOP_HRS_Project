@@ -41,10 +41,12 @@ package oop.project.hrs.backend;
             return checkIn;
         }
         public void setCheckIn(LocalDate checkIn) {
+
             this.checkIn = checkIn;
         }
 
         public LocalDate getCheckOut() {
+
             return checkOut;
         }
         public void setCheckOut(LocalDate checkOut) {
@@ -52,7 +54,26 @@ package oop.project.hrs.backend;
         }
 
         public ReservationStatus getStatus() {
+
             return status;
+        }
+
+        public void confirm() {
+
+            this.status = ReservationStatus.CONFIRMED;
+
+        }
+
+        public void cancel() {
+
+            this.status = ReservationStatus.CANCELLED;
+
+        }
+
+        public void complete() {
+
+            this.status = ReservationStatus.COMPLETED;
+
         }
 
     }
