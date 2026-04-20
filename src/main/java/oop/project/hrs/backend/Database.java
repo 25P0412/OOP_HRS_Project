@@ -119,7 +119,7 @@ public class Database {
         hotelAmenities.removeIf (a -> a.getType().equalsIgnoreCase(type));
     }
 
-
+// Reservation
     // Create a reservation
     public static void addReservation(Reservation reservation) {
         reservations.add(reservation);
@@ -142,10 +142,21 @@ public class Database {
         }
     }
 
-    // Confirm a reservation
+    // Update status (using business methods)
     public static void confirmReservation(Reservation reservation) {
         if (reservation != null) {
             reservation.confirm();
+        }
+    }
+    public static void cancelReservation(Reservation reservation) {
+        if (reservation != null) {
+            reservation.cancel();
+        }
+    }
+
+    public static void completeReservation(Reservation reservation) {
+        if (reservation != null) {
+            reservation.complete();
         }
     }
 
@@ -153,17 +164,24 @@ public class Database {
     public static void removeReservation(Reservation reservation) {
         reservations.remove(reservation);
     }
-
-    // Add a new invoice
+// Invoice
+    // Create an invoice
     public static void addInvoice(Invoice invoice) {
         invoices.add(invoice);
     }
-    // Remove an existing invoice
-    public static void removeInvoice(Invoice invoice) {
-        invoices.remove(invoice);
-    }
-    // Return the list of all invoices
+
+    // Read all invoices
     public static ArrayList<Invoice> getInvoices() {
         return invoices;
+    }
+    // Update (recalculate total based on reservation data)
+    public static void updateInvoiceTotal(Invoice invoice) {
+        if (invoice != null) {
+            invoice.calculateTotal();
+        }
+    }
+    // Delete an invoice
+    public static void removeInvoice(Invoice invoice) {
+        invoices.remove(invoice);
     }
 }
