@@ -29,10 +29,29 @@ import java.util.ArrayList;
 
         }
         public void addPayment(double amount, PaymentMethod method) {
+
+            if (isPaid) {
+                throw new IllegalStateException("Invoice already fully paid");
+            }
+
+            if (amount <= 0) {
+                throw new IllegalArgumentException("Invalid payment amount");
+            }
+
+            double remaining = totalAmount - paidAmount;
+
+            if (amount > remaining) {
+                throw new IllegalArgumentException("Overpayment not allowed");
+            }
+
+            //record payment
             paidAmount += amount;
             paymentMethods.add(method);
+            paymentAmounts.add(amount);
 
-            paymentDate = LocalDate.now();
+            if (paymentDate == null) {
+                paymentDate = LocalDate.now();
+            }
 
             if (paidAmount == totalAmount) {
                 isPaid = true;
