@@ -9,6 +9,8 @@ import java.util.ArrayList;
         private double totalAmount;
 
         private ArrayList<PaymentMethod> paymentMethods;
+        private ArrayList<Double> paymentAmounts;
+
         private double paidAmount;
         private LocalDate paymentDate;
         private boolean isPaid;
@@ -19,17 +21,12 @@ import java.util.ArrayList;
                 throw new IllegalArgumentException("Reservation cannot be null");
             }
 
-            if (totalAmount < 0) {
-                throw new IllegalArgumentException("Amount cannot be negative");
-            }
-
             this.reservation = reservation;
-            // base price from room
-            this.totalAmount = reservation.getRoom().getBasePrice();
-
             this.paymentMethods = new ArrayList<>();
+            this.paymentAmounts = new ArrayList<>();
             this.paidAmount = 0;
             this.isPaid = false;
+
         }
         public void addPayment(double amount, PaymentMethod method) {
             paidAmount += amount;
@@ -52,8 +49,19 @@ import java.util.ArrayList;
             return totalAmount;
         }
 
+        public double getPaidAmount() {
+            return paidAmount;
+        }
+
+        public boolean isPaid() {
+            return isPaid;
+        }
+
         public ArrayList<PaymentMethod> getPaymentMethods() {
             return paymentMethods;
+        }
+        public ArrayList<Double> getPaymentAmounts() {
+            return paymentAmounts;
         }
 
         public LocalDate getPaymentDate() {
