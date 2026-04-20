@@ -15,6 +15,14 @@ import java.util.ArrayList;
 
         public Invoice(Reservation reservation, double totalAmount) {
 
+            if (reservation == null) {
+                throw new IllegalArgumentException("Reservation cannot be null");
+            }
+
+            if (totalAmount < 0) {
+                throw new IllegalArgumentException("Amount cannot be negative");
+            }
+
             this.reservation = reservation;
             this.totalAmount = totalAmount;
 
