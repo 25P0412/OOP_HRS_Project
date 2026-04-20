@@ -1,5 +1,6 @@
 package oop.project.hrs.backend;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +19,11 @@ public class Database {
 
     //HotelAmenities' array definition
     private static ArrayList <Amenity> hotelAmenities = new ArrayList <>();
+
+    // Reservation ArrayList definition
+    private static ArrayList<Reservation> reservations = new ArrayList<>();
+    //Invoice ArrayList definition
+    private static ArrayList<Invoice> invoices = new ArrayList<>();
 
     //Guests and usernames arrays' methods
     public static void addGuest(String username, Guest guest) {
@@ -111,5 +117,53 @@ public class Database {
     //DELETE
     public static void deleteHotelAmenity (String type){
         hotelAmenities.removeIf (a -> a.getType().equalsIgnoreCase(type));
+    }
+
+
+    // Create a reservation
+    public static void addReservation(Reservation reservation) {
+        reservations.add(reservation);
+    }
+    // Read all reservations
+    public static ArrayList<Reservation> getReservations() {
+        return reservations;
+    }
+    // Update check-in date
+    public static void updateReservationCheckIn(Reservation reservation, LocalDate newCheckIn) {
+        if (reservation != null && newCheckIn != null) {
+            reservation.setCheckIn(newCheckIn);
+        }
+    }
+
+    // Update check-out date
+    public static void updateReservationCheckOut(Reservation reservation, LocalDate newCheckOut) {
+        if (reservation != null && newCheckOut != null) {
+            reservation.setCheckOut(newCheckOut);
+        }
+    }
+
+    // Confirm a reservation
+    public static void confirmReservation(Reservation reservation) {
+        if (reservation != null) {
+            reservation.confirm();
+        }
+    }
+
+    // Delete a reservation
+    public static void removeReservation(Reservation reservation) {
+        reservations.remove(reservation);
+    }
+
+    // Add a new invoice
+    public static void addInvoice(Invoice invoice) {
+        invoices.add(invoice);
+    }
+    // Remove an existing invoice
+    public static void removeInvoice(Invoice invoice) {
+        invoices.remove(invoice);
+    }
+    // Return the list of all invoices
+    public static ArrayList<Invoice> getInvoices() {
+        return invoices;
     }
 }

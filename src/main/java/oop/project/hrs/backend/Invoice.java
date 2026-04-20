@@ -28,6 +28,19 @@ import java.util.ArrayList;
             this.isPaid = false;
 
         }
+        public void calculateTotal() {
+
+            Rooms room = reservation.getRoom();
+
+            double total = room.getBasePrice();
+
+            for (Amenity a : room.getRoomAmenities()) {
+                total += a.getPrice() * a.getCount();
+            }
+
+            this.totalAmount = total;
+        }
+
         public void addPayment(double amount, PaymentMethod method) {
 
             if (isPaid) {

@@ -52,7 +52,20 @@ package oop.project.hrs.backend;
 
             return status;
         }
-
+       // Update check-in date with validation
+        public void setCheckIn(LocalDate date) {
+            if (date == null || date.isAfter(checkOut)) {
+                throw new IllegalArgumentException("Invalid check-in date");
+            }
+            this.checkIn = date;
+        }
+        // Updates check-out date with validation
+        public void setCheckOut(LocalDate date) {
+            if (date == null || date.isBefore(checkIn)) {
+                throw new IllegalArgumentException("Invalid check-out date");
+            }
+            this.checkOut = date;
+        }
         // Status control
         public void confirm() {
 
