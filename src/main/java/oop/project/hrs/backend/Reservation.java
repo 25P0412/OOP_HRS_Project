@@ -13,6 +13,10 @@ package oop.project.hrs.backend;
             if (guest == null || room == null) {
                 throw new IllegalArgumentException("Guest and Room cannot be null");
             }
+
+            if (room.getGuest() != null) {
+                throw new IllegalStateException("Room already booked");
+            }
             if (checkIn.isAfter(checkOut)) {
                 throw new IllegalArgumentException("Invalid date range");
             }
@@ -21,6 +25,8 @@ package oop.project.hrs.backend;
             this.checkIn = checkIn;
             this.checkOut = checkOut;
             this.status = ReservationStatus.PENDING;
+            // lock room immediately
+            room.setGuest(guest);
         }
 // getters and setters
         public Guest getGuest() {
@@ -46,19 +52,6 @@ package oop.project.hrs.backend;
 
             return status;
         }
-        public void setCheckIn(LocalDate date) {
-            if (date == null || date.isAfter(checkOut)) {
-                throw new IllegalArgumentException("Invalid check-in date");
-            }
-            this.checkIn = date;
-        }
-
-        public void setCheckOut(LocalDate date) {
-            if (date == null || date.isBefore(checkIn)) {
-                throw new IllegalArgumentException("Invalid check-out date");
-            }
-            this.checkOut = date;
-        }
 
         // Status control
         public void confirm() {
@@ -70,12 +63,13 @@ package oop.project.hrs.backend;
         public void cancel() {
 
             this.status = ReservationStatus.CANCELLED;
-
+            room.setGuest(null); // release room
         }
 
         public void complete() {
 
             this.status = ReservationStatus.COMPLETED;
+            room.setGuest(null); // checkout releases room
 
         }
 
