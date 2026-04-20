@@ -7,14 +7,14 @@ package main.java.oop.project.hrs.backend;
         private Room room;
         private LocalDate checkIn;
         private LocalDate checkOut;
-        private String status;
+        private ReservationStatus status;
 
         public Reservation(Guest guest, Room room, LocalDate checkIn, LocalDate checkOut) {
             this.guest = guest;
             this.room = room;
             this.checkIn = checkIn;
             this.checkOut = checkOut;
-            this.status = "Pending";
+            this.status = ReservationStatus.PENDING;
         }
 // getters and setters
         public Guest getGuest() {
@@ -45,11 +45,9 @@ package main.java.oop.project.hrs.backend;
             this.checkOut = checkOut;
         }
 
-        public String getStatus() {
+        public ReservationStatus getStatus() {
             return status;
         }
-        public void setStatus(String status) {
-            this.status = status;
-        }
+
     }
 
