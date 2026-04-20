@@ -26,15 +26,9 @@ package oop.project.hrs.backend;
         public Guest getGuest() {
             return guest;
         }
-        public void setGuest(Guest guest) {
-            this.guest = guest;
-        }
 
         public Rooms getRoom() {
             return room;
-        }
-        public void setRoom(Rooms room) {
-            this.room = room;
         }
 
         public LocalDate getCheckIn() {
@@ -57,7 +51,7 @@ package oop.project.hrs.backend;
 
             return status;
         }
-
+// Status control
         public void confirm() {
 
             this.status = ReservationStatus.CONFIRMED;
