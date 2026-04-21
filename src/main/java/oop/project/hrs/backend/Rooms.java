@@ -40,4 +40,26 @@ public abstract class Rooms {
     public void setBasePrice(double basePrice) {this.basePrice=basePrice;}
     public Guest getGuest () {return guest;}
     public void setGuest (Guest guest) {this.guest=guest;}
+
+    //Getter and setters methods for modifying AN INTENDED ROOM
+    //Getter (READ)
+    public ArrayList<Amenity> getRoomAmenities(){return roomAmenities;}
+    //Setters
+    //CREATE (Add)
+    public void addRoomAmenity (Amenity newAmenity){
+        this.roomAmenities.add(newAmenity);
+    }
+    //UPDATE the price of a specific amenity
+    public void updateRoomAmenity (String type, double newPrice){
+        for (Amenity a : roomAmenities){
+            if (a.getType().equalsIgnoreCase(type)){
+                a.setPrice(newPrice);
+                break;
+            }
+        }
+    }
+    //DELETE
+    public void deleteRoomAmenity (String type){
+        this.roomAmenities.removeIf(a -> a.getType().equalsIgnoreCase(type));
+    }
 }
