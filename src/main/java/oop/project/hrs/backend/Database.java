@@ -135,7 +135,7 @@ public class Database {
     //MasterAmenities arrays' methods
     //TODO: Fill the arrays with dummy data
     //CREATE
-    public void addAmenityToType (String roomType, Amenity newAmenity) {
+    public static void addAmenityToType (String roomType, Amenity newAmenity) {
         if (roomType.equalsIgnoreCase("SINGLE")) {
             masterSingleAmenities.add(newAmenity);
         } else if (roomType.equalsIgnoreCase("DOUBLE")) {
@@ -146,7 +146,7 @@ public class Database {
         //else TODO: EXCEPTION HANDLING
     }
     //READ
-    public ArrayList<Amenity> displayAllAmenitiesOfType (String roomType) {
+    public static ArrayList<Amenity> displayAllAmenitiesOfType (String roomType) {
         if (roomType.equalsIgnoreCase("SINGLE")) {
             return masterSingleAmenities;
         } else if (roomType.equalsIgnoreCase("DOUBLE")) {
@@ -155,7 +155,7 @@ public class Database {
         //TODO: EXCEPTION HANDLING
     }
     //UPDATE price of an amenity in all rooms of a certain type
-    public void updateAmenityOfType (String roomType, String amenityType, double newPrice) {
+    public static void updateAmenityOfType (String roomType, String amenityType, double newPrice) {
         if (roomType.equalsIgnoreCase("SINGLE")) {
             for (Amenity a : masterSingleAmenities) {
                 if (a.getType().equalsIgnoreCase(amenityType)) {
@@ -178,7 +178,7 @@ public class Database {
         //else TODO: EXCEPTION HANDLING
     }
     //DELETE
-    public void deleteAmenityFromType (String roomType, String amenityType){
+    public static void deleteAmenityFromType (String roomType, String amenityType){
         if (roomType.equalsIgnoreCase("SINGLE")){
             masterSingleAmenities.removeIf(a -> a.getType().equalsIgnoreCase(amenityType));
         }

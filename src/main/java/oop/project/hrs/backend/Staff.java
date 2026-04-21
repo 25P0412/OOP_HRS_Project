@@ -92,8 +92,8 @@ public abstract class Staff {
             System.out.println(" All Hotel Rooms ");
             for (Rooms r : Database.allRooms) {
                 System.out.println("Room #" + r.getRoomNum() +
-                        " | Type: " + r.getRoomType() +
-                        " | Price: " + r.getBasePrice());
+                        "  Type: " + r.getRoomType() +
+                        " |Price: " + r.getBasePrice());
 
         }
     }

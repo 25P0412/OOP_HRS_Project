@@ -5,15 +5,20 @@ public class Receptionist extends Staff {
             super(role, username, password, dateOfBirth, workinghours);
         }
 
-        public void manageCheckIn(Guest guest, String roomNumber) {
 
+     public void performCheckIn(Reservation res) {
+            res.confirm();
+            System.out.println("Check-in done for: " + res.getGuest().getName());
         }
 
-        public void manageCheckOut(Guest guest) {
-
+        public void performCheckOut(Reservation res) {
+            res.complete();
+            System.out.println("Check-out done. Invoice: " + res.getRoom().getPrice() + " $");
         }
 
-
-
+        public void cancelBooking(Reservation res) {
+            res.cancel();
+            System.out.println("Reservation cancelled.");
+        }
     }
 
