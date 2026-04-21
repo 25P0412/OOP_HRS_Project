@@ -86,6 +86,14 @@ public class Database {
             }
         }
     }
+    //UPDATE room status
+    public static void updateRoomStatus (int roomNum, Status newStatus){
+        for (Rooms r : allRooms){
+            if (r.getRoomNum()==roomNum){
+                r.setStatus(newStatus);
+            }
+        }
+    }
     //DELETE
     public static void removeRoom (int roomNum){
         allRooms.removeIf (r -> r.getRoomNum()== roomNum);
