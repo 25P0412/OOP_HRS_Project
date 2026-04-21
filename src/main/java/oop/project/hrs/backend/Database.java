@@ -17,8 +17,13 @@ public class Database {
     //allRooms' array definition
     private static ArrayList<Rooms> allRooms = new ArrayList<>();
 
-    //HotelAmenities' array definition
-    private static ArrayList <Amenity> hotelAmenities = new ArrayList <>();
+    //hotelAmenities' array definition
+    private static ArrayList<Amenity> hotelAmenities = new ArrayList <>();
+
+    //MasterAmenities' array definition
+    private static ArrayList <Amenity> masterSingleAmenities = new ArrayList<>();
+    private static ArrayList <Amenity> masterDoubleAmenities = new ArrayList<>();
+    private static ArrayList <Amenity> masterSuiteAmenities = new ArrayList<>();
 
     // Reservation ArrayList definition
     private static ArrayList<Reservation> reservations = new ArrayList<>();
@@ -118,7 +123,65 @@ public class Database {
     public static void deleteHotelAmenity (String type){
         hotelAmenities.removeIf (a -> a.getType().equalsIgnoreCase(type));
     }
-
+    //CRUD opertions on A TYPE OF ROOM
+    //MasterAmenities arrays' methods
+    //TODO: Fill the arrays with dummy data
+    //CREATE
+    public void addAmenityToType (String roomType, Amenity newAmenity) {
+        if (roomType.equalsIgnoreCase("SINGLE")) {
+            masterSingleAmenities.add(newAmenity);
+        } else if (roomType.equalsIgnoreCase("DOUBLE")) {
+            masterDoubleAmenities.add(newAmenity);
+        } else if (roomType.equalsIgnoreCase("SUITE")) {
+            masterSuiteAmenities.add(newAmenity);
+        }
+        //else TODO: EXCEPTION HANDLING
+    }
+    //READ
+    public ArrayList<Amenity> displayAllAmenitiesOfType (String roomType) {
+        if (roomType.equalsIgnoreCase("SINGLE")) {
+            return masterSingleAmenities;
+        } else if (roomType.equalsIgnoreCase("DOUBLE")) {
+            return masterDoubleAmenities;}
+        else return masterSuiteAmenities;
+        //TODO: EXCEPTION HANDLING
+    }
+    //UPDATE price of an amenity in all rooms of a certain type
+    public void updateAmenityOfType (String roomType, String amenityType, double newPrice) {
+        if (roomType.equalsIgnoreCase("SINGLE")) {
+            for (Amenity a : masterSingleAmenities) {
+                if (a.getType().equalsIgnoreCase(amenityType)) {
+                    a.setPrice(newPrice);
+                }
+            }
+        } else if (roomType.equalsIgnoreCase("DOUBLE")) {
+            for (Amenity a : masterDoubleAmenities) {
+                if (a.getType().equalsIgnoreCase(amenityType)) {
+                    a.setPrice(newPrice);
+                }
+            }
+        } else if (roomType.equalsIgnoreCase("SUITE")) {
+            for (Amenity a : masterSuiteAmenities) {
+                if (a.getType().equalsIgnoreCase(amenityType)) {
+                    a.setPrice(newPrice);
+                }
+            }
+        }
+        //else TODO: EXCEPTION HANDLING
+    }
+    //DELETE
+    public void deleteAmenityFromType (String roomType, String amenityType){
+        if (roomType.equalsIgnoreCase("SINGLE")){
+            masterSingleAmenities.removeIf(a -> a.getType().equalsIgnoreCase(amenityType));
+        }
+        else if (roomType.equalsIgnoreCase("DOUBLE")){
+            masterDoubleAmenities.removeIf(a -> a.getType().equalsIgnoreCase(amenityType));
+        }
+        else if (roomType.equalsIgnoreCase("SUITE")){
+            masterSuiteAmenities.removeIf(a -> a.getType().equalsIgnoreCase(amenityType));
+        }
+        //else TODO:EXCEPTION HANDLING
+    }
 // Reservation
     // Create a reservation
     public static void addReservation(Reservation reservation) {
