@@ -72,10 +72,20 @@ public abstract class Staff {
             }
         }
     }
-    }
+
     public void viewAllReservations() {
-        // Logic to display all reservations from Database
-    }
+            ArrayList<Reservation> allReservations = Database.getReservations();
+            if (allReservations.isEmpty()) {
+                System.out.println("No reservations found.");
+            }
+            else {
+                System.out.println("    List of Current Reservations   ");
+                for (Reservation res : allReservations) {
+                    System.out.println(res);
+                }
+            }
+        }
+
     public void viewallrooms() {
 // Method to display ALL rooms currently in the database
 
