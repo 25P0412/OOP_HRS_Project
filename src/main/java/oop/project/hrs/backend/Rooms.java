@@ -41,7 +41,7 @@ public abstract class Rooms {
     public Guest getGuest () {return guest;}
     public void setGuest (Guest guest) {this.guest=guest;}
 
-    //Getter and setters methods for modifying AN INTENDED ROOM
+    //Getter and setters methods for modifying an amenity in AN INTENDED ROOM
     //Getter (READ)
     public ArrayList<Amenity> getRoomAmenities(){return roomAmenities;}
     //Setters
