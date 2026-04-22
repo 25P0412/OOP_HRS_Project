@@ -30,6 +30,27 @@ package oop.project.hrs.backend;
             // lock room immediately
             room.setGuest(guest);
         }
+        public double calculateTotalPrice() {
+
+            Rooms room = this.room;
+
+            double total = 0;
+
+            // base price
+            total += room.getBasePrice();
+
+            // room amenities
+            for (Amenity a : room.getRoomAmenities()) {
+                total += a.getPrice() * a.getCount();
+            }
+
+            // hotel amenities
+            for (Amenity a : Database.getHotelAmenities()) {
+                total += a.getPrice() * a.getCount();
+            }
+
+            return total;
+        }
 // getters and setters
         public Guest getGuest() {
 

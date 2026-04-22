@@ -18,7 +18,7 @@ import java.util.ArrayList;
         public Invoice(Reservation reservation, double totalAmount) {
 
             if (reservation == null) {
-                throw new IllegalArgumentException("Reservation cannot be null");
+                throw new ProjectExceptions.InvalidInvoiceException();
             }
 
             this.reservation = reservation;
@@ -29,40 +29,20 @@ import java.util.ArrayList;
 
         }
 
-        private double calculateAmenitiesCost(ArrayList<Amenity> amenities) {
-
-            double total = 0;
-
-            for (Amenity a : amenities) {
-                total += a.getPrice() * a.getCount();
-            }
-
-            return total;
-        }
-        public void calculateTotal() {
-
-            Rooms room = reservation.getRoom();
-
-            this.totalAmount =
-                    room.getBasePrice()
-                            + calculateAmenitiesCost(room.getRoomAmenities())
-                            + calculateAmenitiesCost(Database.getHotelAmenities());
-        }
-
         public void addPayment(double amount, PaymentMethod method) {
 
             if (isPaid) {
-                throw new IllegalStateException("Invoice already fully paid");
+                throw new ProjectExceptions.InvoiceAlreadyPaidException();
             }
 
             if (amount <= 0) {
-                throw new IllegalArgumentException("Invalid payment amount");
+                throw new ProjectExceptions.InvalidPaymentAmountException();
             }
 
             double remaining = totalAmount - paidAmount;
 
             if (amount > remaining) {
-                throw new IllegalArgumentException("Overpayment not allowed");
+                throw new ProjectExceptions.OverpaymentException();
             }
 
             //record payment
