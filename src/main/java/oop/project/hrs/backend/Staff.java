@@ -57,9 +57,10 @@ public abstract class Staff {
     public void setDateofbirth(LocalDate dateofbirth) {
         this.dateofbirth = dateofbirth;
     }
+
+
     public void viewAllGuests() {
         Set<String> allUsernames = Database.getGuestUsernames();
-
         System.out.println("    Total Guests List    ");
         for (String name : allUsernames) {
             Guest guestInfo = Database.getGuestByUsername(name);
@@ -68,7 +69,7 @@ public abstract class Staff {
                 System.out.println("Balance: " + guestInfo.getBalance());
                 System.out.println("Address: " + guestInfo.getAddress());
                 System.out.println("Gender: " + guestInfo.getGender());
-                System.out.println("                     ");
+                System.out.println("room: " + guestInfo.getRoomPreferences());
             }
         }
     }
@@ -91,9 +92,9 @@ public abstract class Staff {
 
             System.out.println(" All Hotel Rooms ");
             for (Rooms r : Database.allRooms) {
-                System.out.println("Room #" + r.getRoomNum() +
+                System.out.println("Room:" + r.getRoomNum() +
                         "  Type: " + r.getRoomType() +
-                        " |Price: " + r.getBasePrice());
+                        " Price: " + r.getBasePrice());
 
         }
     }

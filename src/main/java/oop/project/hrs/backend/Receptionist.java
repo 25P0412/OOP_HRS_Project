@@ -5,20 +5,38 @@ public class Receptionist extends Staff {
             super(role, username, password, dateOfBirth, workinghours);
         }
 
+package oop.project.hrs.backend;
 
-     public void performCheckIn(Reservation res) {
+    public class Receptionist extends Staff {
+
+        public Receptionist(String username, String password, Role role, java.time.LocalDate dateOfBirth, int workinghours) {
+            super(role, username, password, dateOfBirth, workinghours);
+        }
+
+        public void performCheckIn(Reservation res) {
+            if (res == null) throw new ProjectExceptions.InvalidReservationDataException();
             res.confirm();
-            System.out.println("Check-in done for: " + res.getGuest().getName());
+            Database.updateRoomStatus(res.getRoom().getRoomNum(), Status.BOOKED);
+            System.out.println("Check-in successful: " + res.getGuest().getUsername());
         }
 
         public void performCheckOut(Reservation res) {
+            if (res == null) throw new ProjectExceptions.InvalidReservationDataException();
+            Invoice inv = Database.getInvoiceByReservation(res);
+            if (inv != null && !inv.isPaid()) {
+                throw new ProjectExceptions.BaseException("Check-out failed: The invoice is not fully paid yet.");
+            }
             res.complete();
-            System.out.println("Check-out done. Invoice: " + res.getRoom().getPrice() + " $");
+            Database.updateRoomStatus(res.getRoom().getRoomNum(), Status.UNBOOKED);
+            System.out.println("Check-out completed for Room " + res.getRoom().getRoomNum());
         }
-
         public void cancelBooking(Reservation res) {
+            if (res == null) throw new ProjectExceptions.InvalidReservationDataException();
             res.cancel();
-            System.out.println("Reservation cancelled.");
+            Database.updateRoomStatus(res.getRoom().getRoomNum(), Status.UNBOOKED);
+            System.out.println("Booking for Room " + res.getRoom().getRoomNum() + " cancelled.");
         }
     }
+
+
 

@@ -258,4 +258,12 @@ public class Database {
     public static void removeInvoice(Invoice invoice) {
         invoices.remove(invoice);
     }
-}
+}// Search for an invoice associated with a specific reservation in the invoices list
+        public static Invoice getInvoiceByReservation(Reservation res) {
+            for (Invoice inv : invoices) {
+                if (inv.getReservation().equals(res)) {
+                    return inv;
+                }
+            }
+            return null;
+        }
