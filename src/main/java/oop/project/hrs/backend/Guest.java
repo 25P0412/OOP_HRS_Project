@@ -1,5 +1,6 @@
 package oop.project.hrs.backend;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 //Public class Guest extends User
@@ -66,7 +67,57 @@ public class Guest {
     public void setRoomPreferences(String roomPreferences) {
         this.roomPreferences = roomPreferences;
     }
-    public String listAvailableRooms() {
-        return Database.displayAllRooms();
+    public List listAvailableRooms() {
+        return Database.displayAvailableRooms();
+    }
+    public boolean makeReservation(String username, int roomNum, LocalDate checkIn, LocalDate checkOut) {
+        Rooms room = Database.getRoomByNum(roomNum);
+        Guest guest = Database.getGuestByUsername(username);
+        if (room != null && guest != null && room.getStatus() == Status.UNBOOKED) {
+            Database.addReservation(new Reservation(guest, room, checkIn, checkOut));
+            room.setStatus(Status.BOOKED);
+            return true;
+        }
+        return false;
+    }
+    public ArrayList<Reservation> getUserReservations() {
+        ArrayList<Reservation> userReservations = new ArrayList<>();
+        ArrayList<Reservation> reservations = Database.getReservations();
+        for (Reservation res : reservations) {
+            if (res.getGuest().getUsername().equals(username)) {
+                userReservations.add(res);
+            }
+        }
+        return userReservations;
+    }
+    public void cancelReservations() {
+        ArrayList<Reservation> reservations = Database.getReservations();
+        for (Reservation res : reservations) {
+            if (res.getGuest().getUsername().equals(username)) {
+                Database.removeReservation(res);
+            }
+        }
+    }
+    public boolean checkout() {
+        Reservation activeRes = null;
+        for (Reservation res : getUserReservations()) {
+            if (res.getStatus() == ReservationStatus.PENDING || res.getStatus() == ReservationStatus.CONFIRMED) {
+                activeRes = res;
+                break;
+            }
+        }
+        if (activeRes == null) {
+            return false; // No active stay to check out from
+        }
+        Invoice invoice = activeRes.getInvoice();
+        double remaining = invoice.getTotalAmount() - invoice.getPaidAmount();
+        // 2. Validate funds
+        if (this.balance < remaining) {
+            throw new ProjectExceptions.InsufficientBalanceException(this.balance);
+        }
+        // 3. Process payment
+        this.balance -= remaining;
+        invoice.addPayment(remaining, PaymentMethod.CASH);
+        return true;
     }
 }
