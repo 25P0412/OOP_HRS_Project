@@ -37,4 +37,27 @@ public class ProjectExceptions {
             super(message);
         }
     }
+    public static class InvalidInvoiceException extends BaseException {
+        public InvalidInvoiceException() {
+            super("Invoice must be associated with a valid reservation!");
+        }
+    }
+
+    public static class InvoiceAlreadyPaidException extends BaseException {
+        public InvoiceAlreadyPaidException() {
+            super("Invoice is already fully paid!");
+        }
+    }
+
+    public static class InvalidPaymentAmountException extends BaseException {
+        public InvalidPaymentAmountException() {
+            super("Payment amount must be greater than zero!");
+        }
+    }
+
+    public static class OverpaymentException extends BaseException {
+        public OverpaymentException() {
+            super("Payment exceeds remaining balance!");
+        }
+    }
 }
