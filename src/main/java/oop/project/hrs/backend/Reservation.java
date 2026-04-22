@@ -10,15 +10,17 @@ package oop.project.hrs.backend;
         private ReservationStatus status;
 
         public Reservation(Guest guest, Rooms room, LocalDate checkIn, LocalDate checkOut) {
+
             if (guest == null || room == null) {
-                throw new IllegalArgumentException("Guest and Room cannot be null");
+                throw new ProjectExceptions.InvalidReservationDataException();
             }
 
             if (room.getGuest() != null) {
-                throw new IllegalStateException("Room already booked");
+                throw new ProjectExceptions.RoomAlreadyBookedException();
             }
+
             if (checkIn.isAfter(checkOut)) {
-                throw new IllegalArgumentException("Invalid date range");
+                throw new ProjectExceptions.InvalidDateRangeException("Invalid date range");
             }
             this.guest = guest;
             this.room = room;
@@ -52,21 +54,24 @@ package oop.project.hrs.backend;
 
             return status;
         }
+
        // Update check-in date with validation
-        public void setCheckIn(LocalDate date) {
-            if (date == null || date.isAfter(checkOut)) {
-                throw new IllegalArgumentException("Invalid check-in date");
-            }
-            this.checkIn = date;
-        }
+       public void setCheckIn(LocalDate date) {
+           if (date == null || date.isAfter(checkOut)) {
+               throw new ProjectExceptions.InvalidDateRangeException("Invalid check-in date");
+           }
+           this.checkIn = date;
+       }
+
         // Updates check-out date with validation
         public void setCheckOut(LocalDate date) {
             if (date == null || date.isBefore(checkIn)) {
-                throw new IllegalArgumentException("Invalid check-out date");
+                throw new ProjectExceptions.InvalidDateRangeException("Invalid check-out date");
             }
             this.checkOut = date;
         }
-        // Status control
+
+        //Status control
         public void confirm() {
 
             this.status = ReservationStatus.CONFIRMED;

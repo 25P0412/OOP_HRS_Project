@@ -20,4 +20,21 @@ public class ProjectExceptions {
             super("Username or Password is invalid!");
         }
     }
+    public static class InvalidReservationDataException extends BaseException {
+        public InvalidReservationDataException() {
+            super("Guest and Room cannot be null!");
+        }
+    }
+
+    public static class RoomAlreadyBookedException extends BaseException {
+        public RoomAlreadyBookedException() {
+            super("Room is already booked!");
+        }
+    }
+
+    public static class InvalidDateRangeException extends BaseException {
+        public InvalidDateRangeException(String message) {
+            super(message);
+        }
+    }
 }
