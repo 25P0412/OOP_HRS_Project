@@ -9,6 +9,9 @@ public abstract class Rooms {
     //Each room is associated with its own amenities based on its type.
     private ArrayList<Amenity> roomAmenities;
 
+    //Each room is associated with a status.
+    private Status status;
+
     private int roomNum;
     private int numOfGuests;
     private int numOfBeds;
@@ -16,7 +19,9 @@ public abstract class Rooms {
     private Guest guest;
 
     //Constructor
-    public Rooms (String roomType, ArrayList <Amenity> roomAmenities, int roomNum, int numOfGuests, int numOfBeds, double basePrice, Guest guest){
+    public Rooms (String roomType, Status status, ArrayList <Amenity> roomAmenities, int roomNum, int numOfGuests, int numOfBeds, double basePrice, Guest guest){
+        this.roomType=roomType;
+        this.status=status;
         this.roomAmenities=new ArrayList <>(roomAmenities);
         this.roomType=roomType;
         this.roomNum=roomNum;
@@ -40,4 +45,28 @@ public abstract class Rooms {
     public void setBasePrice(double basePrice) {this.basePrice=basePrice;}
     public Guest getGuest () {return guest;}
     public void setGuest (Guest guest) {this.guest=guest;}
+    public Status getStatus () {return status;}
+    public void setStatus (Status status) {this.status=status;}
+
+    //Getter and setters methods for modifying an amenity in AN INTENDED ROOM
+    //Getter (READ)
+    public ArrayList<Amenity> getRoomAmenities(){return roomAmenities;}
+    //Setters
+    //CREATE (Add)
+    public void addRoomAmenity (Amenity newAmenity){
+        this.roomAmenities.add(newAmenity);
+    }
+    //UPDATE the price of a specific amenity
+    public void updateRoomAmenity (String type, double newPrice){
+        for (Amenity a : roomAmenities){
+            if (a.getType().equalsIgnoreCase(type)){
+                a.setPrice(newPrice);
+                break;
+            }
+        }
+    }
+    //DELETE
+    public void deleteRoomAmenity (String type){
+        this.roomAmenities.removeIf(a -> a.getType().equalsIgnoreCase(type));
+    }
 }
