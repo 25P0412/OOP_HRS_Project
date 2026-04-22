@@ -2,6 +2,7 @@ package oop.project.hrs.backend;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public abstract class Staff {
     private Role role;
