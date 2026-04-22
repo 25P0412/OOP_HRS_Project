@@ -28,17 +28,25 @@ import java.util.ArrayList;
             this.isPaid = false;
 
         }
+
+        private double calculateAmenitiesCost(ArrayList<Amenity> amenities) {
+
+            double total = 0;
+
+            for (Amenity a : amenities) {
+                total += a.getPrice() * a.getCount();
+            }
+
+            return total;
+        }
         public void calculateTotal() {
 
             Rooms room = reservation.getRoom();
 
-            double total = room.getBasePrice();
-
-            for (Amenity a : room.getRoomAmenities()) {
-                total += a.getPrice() * a.getCount();
-            }
-
-            this.totalAmount = total;
+            this.totalAmount =
+                    room.getBasePrice()
+                            + calculateAmenitiesCost(room.getRoomAmenities())
+                            + calculateAmenitiesCost(Database.getHotelAmenities());
         }
 
         public void addPayment(double amount, PaymentMethod method) {
