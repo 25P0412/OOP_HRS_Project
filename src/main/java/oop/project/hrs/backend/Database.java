@@ -251,19 +251,38 @@ public class Database {
     // Update (recalculate total based on reservation data)
     public static void updateInvoiceTotal(Invoice invoice) {
         if (invoice != null) {
-            invoice.calculateTotal();
+            invoice.getTotalAmount();
         }
     }
     // Delete an invoice
     public static void removeInvoice(Invoice invoice) {
         invoices.remove(invoice);
     }
-}// Search for an invoice associated with a specific reservation in the invoices list
-        public static Invoice getInvoiceByReservation(Reservation res) {
-            for (Invoice inv : invoices) {
-                if (inv.getReservation().equals(res)) {
-                    return inv;
-                }
+    // Search for an invoice associated with a specific reservation in the invoices list
+    public static Invoice getInvoiceByReservation(Reservation res) {
+        for (Invoice inv : invoices) {
+            if (inv.getReservation().equals(res)) {
+                return inv;
             }
-            return null;
         }
+        return null;
+    }
+
+    public static List displayAvailableRooms() {
+        List<Rooms> available = new ArrayList<>();
+        for (Rooms room : allRooms) {
+            if (room.getStatus() == Status.UNBOOKED) {
+                available.add(room);
+            }
+        }
+        return available;
+    }
+    public static Rooms getRoomByNum(int num) {
+        for (Rooms room : allRooms) {
+            if (room.getRoomNum() == num) {
+                return room;
+            }
+        }
+        return null;
+    }
+}
