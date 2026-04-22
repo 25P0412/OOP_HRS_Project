@@ -111,6 +111,9 @@ public class Database {
         }
         return result.toString();
     }
+    public static ArrayList <Amenity> getHotelAmenities (){
+        return hotelAmenities;
+    }
     //UPDATE the price of a Hotel Amenity
     public static void updatePriceOfHotelAmenity(String type, double newPrice){
         for (Amenity a : hotelAmenities){
