@@ -232,6 +232,21 @@ public class Database {
         }
         return result;
     }
+    public static String displayAllReservations() {
+        StringBuilder result = new StringBuilder();
+
+        for (Reservation r : reservations) {
+            result.append("Reservation ID: ").append(r.getReservationId()).append("\n")
+                    .append("Guest: ").append(r.getGuest().getUsername()).append("\n")
+                    .append("Room: ").append(r.getRoom().getRoomNum()).append("\n")
+                    .append("Check-In: ").append(r.getCheckIn()).append("\n")
+                    .append("Check-Out: ").append(r.getCheckOut()).append("\n")
+                    .append("Status: ").append(r.getStatus()).append("\n")
+                    .append("----------------------\n");
+        }
+
+        return result.toString();
+    }
     // Update check-in date
     public static void updateReservationCheckIn(Reservation reservation, LocalDate newCheckIn) {
         if (reservation != null && newCheckIn != null) {
@@ -285,6 +300,19 @@ public class Database {
             }
         }
         return null;
+    }
+    public static String displayAllInvoices() {
+        StringBuilder result = new StringBuilder();
+
+        for (Invoice i : invoices) {
+            result.append("Invoice ID: ").append(i.getInvoiceId()).append("\n")
+                    .append("Reservation ID: ")
+                    .append(i.getReservation().getReservationId()).append("\n")
+                    .append("Total Amount: ").append(i.getTotalAmount()).append("\n")
+                    .append("----------------------\n");
+        }
+
+        return result.toString();
     }
     // Update an invoice
     public static void updateInvoice(Invoice updatedInvoice) {
