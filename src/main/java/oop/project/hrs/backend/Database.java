@@ -202,6 +202,36 @@ public class Database {
     public static ArrayList<Reservation> getReservations() {
        return new ArrayList<>(reservations);
     }
+    public static Reservation getReservationById(int id) {
+        for (Reservation r : reservations) {
+            if (r.getReservationId() == id) {
+                return r;
+            }
+        }
+        return null;
+    }
+    public static List<Reservation> getReservationsByGuest(String username) {
+        List<Reservation> result = new ArrayList<>();
+
+        for (Reservation r : reservations) {
+            if (r.getGuest() != null &&
+                    r.getGuest().getUsername().equals(username)) {
+                result.add(r);
+            }
+        }
+        return result;
+    }
+    public static List<Reservation> getReservationsByRoom(int roomNum) {
+        List<Reservation> result = new ArrayList<>();
+
+        for (Reservation r : reservations) {
+            if (r.getRoom() != null &&
+                    r.getRoom().getRoomNum() == roomNum) {
+                result.add(r);
+            }
+        }
+        return result;
+    }
     // Update check-in date
     public static void updateReservationCheckIn(Reservation reservation, LocalDate newCheckIn) {
         if (reservation != null && newCheckIn != null) {
