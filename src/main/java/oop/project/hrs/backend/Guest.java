@@ -1,7 +1,6 @@
 package oop.project.hrs.backend;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 //Public class Guest extends User
 public class Guest {
@@ -11,18 +10,25 @@ public class Guest {
     private double balance;
     private String address;
     private Gender gender;
-    private String roomPreferences;
+    private Set<RoomType> preferredTypes = new HashSet<>();
     //Waiting for roomPreferences to be implemented
-    public Guest(String username, String password, Gender gender, LocalDate dateOfBirth, double balance, String address, String roomPreferences) {
+    public Guest(String username, String password, Gender gender, LocalDate dateOfBirth, double balance, String address) {
         this.username = username;
         this.password = password;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.balance = balance;
         this.address = address;
-        this.roomPreferences = roomPreferences;
     }
-    //Getter Setter methods
+    public void addPreference(RoomType type) {
+        this.preferredTypes.add(type);
+    }
+    public void removePreferredType(RoomType type) {
+        this.preferredTypes.remove(type);
+    }
+    public Set<RoomType> getPreferredTypes() {
+        return Collections.unmodifiableSet(preferredTypes);
+    }
     public String getUsername() {
         return username;
     }
@@ -59,16 +65,19 @@ public class Guest {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
-
-    public String getRoomPreferences() {
-        return roomPreferences;
-    }
-
-    public void setRoomPreferences(String roomPreferences) {
-        this.roomPreferences = roomPreferences;
-    }
-    public List listAvailableRooms() {
-        return Database.displayAvailableRooms();
+    public List<Rooms> listRoomsByPreferences(Guest guest) {
+        List<Rooms> allAvailable = Database.displayAvailableRooms();
+        Set<RoomType> prefs = guest.getPreferredTypes();
+        if (prefs.isEmpty()) {
+            return allAvailable;
+        }
+        List<Rooms> filtered = new ArrayList<>();
+        for (Rooms room : allAvailable) {
+            if (prefs.contains(room.getRoomType())) {
+                filtered.add(room);
+            }
+        }
+        return filtered;
     }
     public boolean makeReservation(String username, int roomNum, LocalDate checkIn, LocalDate checkOut) {
         Rooms room = Database.getRoomByNum(roomNum);
@@ -90,10 +99,10 @@ public class Guest {
         }
         return userReservations;
     }
-    public void cancelReservations() {
+    public void cancelReservations(int id) {
         ArrayList<Reservation> reservations = Database.getReservations();
         for (Reservation res : reservations) {
-            if (res.getGuest().getUsername().equals(username)) {
+            if (res.getReservationId() == id) {
                 Database.removeReservation(res);
             }
         }
@@ -107,15 +116,15 @@ public class Guest {
             }
         }
         if (activeRes == null) {
-            return false; // No active stay to check out from
+            return false;
         }
         Invoice invoice = activeRes.getInvoice();
         double remaining = invoice.getTotalAmount() - invoice.getPaidAmount();
-        // 2. Validate funds
+        // Validate funds
         if (this.balance < remaining) {
             throw new ProjectExceptions.InsufficientBalanceException(this.balance);
         }
-        // 3. Process payment
+        // Process payment
         this.balance -= remaining;
         invoice.addPayment(remaining, PaymentMethod.CASH);
         return true;
