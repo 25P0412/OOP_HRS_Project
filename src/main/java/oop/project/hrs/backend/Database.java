@@ -200,7 +200,7 @@ public class Database {
     }
     // Read all reservations
     public static ArrayList<Reservation> getReservations() {
-        return reservations;
+       return new ArrayList<>(reservations);
     }
     // Update check-in date
     public static void updateReservationCheckIn(Reservation reservation, LocalDate newCheckIn) {
@@ -246,7 +246,7 @@ public class Database {
 
     // Read all invoices
     public static ArrayList<Invoice> getInvoices() {
-        return invoices;
+        return new ArrayList<>(invoices);
     }
 
     // Update an invoice
@@ -254,7 +254,7 @@ public class Database {
         if (updatedInvoice == null) return;
 
         for (int i = 0; i < invoices.size(); i++) {
-            if (invoices.get(i).getId() == updatedInvoice.getId()) {
+            if (invoices.get(i).getInvoiceId() == updatedInvoice.getInvoiceId()) {
                 invoices.set(i, updatedInvoice);
                 return;
             }
