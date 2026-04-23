@@ -18,10 +18,6 @@ package oop.project.hrs.backend;
                 throw new ProjectExceptions.InvalidReservationDataException();
             }
 
-            if (room.getGuest() != null) {
-                throw new ProjectExceptions.RoomAlreadyBookedException();
-            }
-
             if (checkIn.isAfter(checkOut)) {
                 throw new ProjectExceptions.InvalidDateRangeException("Invalid date range");
             }

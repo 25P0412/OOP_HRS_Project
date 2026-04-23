@@ -85,6 +85,9 @@ public class Database {
                 r.setRoomType(roomType);
             }
         }
+        for (Reservation res : getReservationsByRoom(roomNum)) {
+            res.refreshInvoice();
+        }
     }
     //UPDATE room status
     public static void updateRoomStatus (int roomNum, Status newStatus){
@@ -102,6 +105,7 @@ public class Database {
     //CREATE
     public static void addHotelAmenities (Amenity newAmenity){
         hotelAmenities.add (newAmenity);
+        refreshAllInvoices();
     }
     //READ
     public static String displayHotelAmenities (){
@@ -121,6 +125,7 @@ public class Database {
                a.setPrice(newPrice);
             }
         }
+        refreshAllInvoices();
     }
     //UPDATE the count of a Hotel Amenity
     public static void updateCountOfHotelAmenity(String type, int newCount){
@@ -129,10 +134,12 @@ public class Database {
                 a.setCount(newCount);
             }
         }
+        refreshAllInvoices();
     }
     //DELETE
     public static void deleteHotelAmenity (String type){
         hotelAmenities.removeIf (a -> a.getType().equalsIgnoreCase(type));
+        refreshAllInvoices();
     }
     //CRUD opertions on A TYPE OF ROOM
     //MasterAmenities arrays' methods
@@ -325,6 +332,11 @@ public class Database {
             }
         }
     }
+    public static void refreshAllInvoices() {
+        for (Reservation r : reservations) {
+            r.refreshInvoice();
+        }
+    }
     // Delete an invoice
     public static void removeInvoice(Invoice invoice) {
         invoices.remove(invoice);
@@ -332,7 +344,7 @@ public class Database {
     // Search for an invoice associated with a specific reservation in the invoices list
     public static Invoice getInvoiceByReservation(Reservation res) {
         for (Invoice inv : invoices) {
-            if (inv.getReservation().equals(res)) {
+            if (inv.getReservation().getReservationId() == res.getReservationId()) {
                 return inv;
             }
         }
