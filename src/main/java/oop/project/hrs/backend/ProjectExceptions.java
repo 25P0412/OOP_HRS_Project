@@ -30,7 +30,11 @@ public class ProjectExceptions {
             super(message);
         }
     }
-
+    public static class RoomNotAvailableException extends RuntimeException {
+        public RoomNotAvailableException(String message) {
+            super("Room is not available");
+        }
+    }
     public static class RoomAlreadyBookedException extends BaseException {
         public RoomAlreadyBookedException() {
             super("Room is already booked!");

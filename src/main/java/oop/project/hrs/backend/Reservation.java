@@ -25,6 +25,15 @@ package oop.project.hrs.backend;
             if (checkIn.isAfter(checkOut)) {
                 throw new ProjectExceptions.InvalidDateRangeException("Invalid date range");
             }
+            for (Reservation r : Database.getReservations()) {
+                if (r.getRoom().getRoomNum() == room.getRoomNum() &&
+                        !(checkOut.isBefore(r.getCheckIn()) ||
+                                checkIn.isAfter(r.getCheckOut()))) {
+
+                    throw new ProjectExceptions.RoomAlreadyBookedException();
+                }
+            }
+
             this.reservationId = reservationIdcounter++;
             this.guest = guest;
             this.room = room;
