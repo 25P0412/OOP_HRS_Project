@@ -18,7 +18,7 @@ public class Admin extends Staff {
         Database.updateRoomNum(oldNum, newNum);
     }
 
-    public void updateRoomType(int roomNum, String roomType) {
+    public void updateRoomType(int roomNum, RoomType roomType) {
         Database.updateRoomType(roomNum, roomType);
     }
 

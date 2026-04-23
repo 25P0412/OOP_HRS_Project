@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Rooms {
     //"Associated with one room type" requirement.
-    private String roomType;
-
+    private RoomType roomType;
     //Each room is associated with its own amenities based on its type.
     private ArrayList<Amenity> roomAmenities;
 
@@ -19,11 +18,10 @@ public abstract class Rooms {
     private Guest guest;
 
     //Constructor
-    public Rooms (String roomType, Status status, ArrayList <Amenity> roomAmenities, int roomNum, int numOfGuests, int numOfBeds, double basePrice, Guest guest){
+    public Rooms (RoomType roomType, Status status, ArrayList <Amenity> roomAmenities, int roomNum, int numOfGuests, int numOfBeds, double basePrice, Guest guest){
         this.roomType=roomType;
         this.status=status;
         this.roomAmenities=new ArrayList <>(roomAmenities);
-        this.roomType=roomType;
         this.roomNum=roomNum;
         this.numOfGuests=numOfGuests;
         this.numOfBeds=numOfBeds;
@@ -33,8 +31,8 @@ public abstract class Rooms {
     }
 
     //Getters and setters methods
-    public String getRoomType () {return roomType;}
-    public void setRoomType (String roomType) {this.roomType=roomType;}
+    public RoomType getRoomType () {return roomType;};
+    public void setRoomType (RoomType roomType) {this.roomType=roomType;}
     public int getRoomNum () {return roomNum;}
     public void setRoomNum (int roomNum) {this.roomNum=roomNum;}
     public int getNumOfGuests () {return numOfGuests;}

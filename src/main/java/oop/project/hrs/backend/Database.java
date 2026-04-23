@@ -79,7 +79,7 @@ public class Database {
         }
     }
     //UPDATE room type
-    public static void updateRoomType (int roomNum, String roomType){
+    public static void updateRoomType (int roomNum, RoomType roomType){
         for (Rooms r : allRooms){
             if (r.getRoomNum() == roomNum){
                 r.setRoomType(roomType);
@@ -351,7 +351,7 @@ public class Database {
         return null;
     }
 
-    public static List displayAvailableRooms() {
+    public static List<Rooms> displayAvailableRooms() {
         List<Rooms> available = new ArrayList<>();
         for (Rooms room : allRooms) {
             if (room.getStatus() == Status.UNBOOKED) {
