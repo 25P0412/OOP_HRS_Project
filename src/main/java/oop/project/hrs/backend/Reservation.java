@@ -102,21 +102,27 @@ package oop.project.hrs.backend;
         //Status control
         public void confirm() {
 
+            if (status != ReservationStatus.PENDING) {
+                throw new ProjectExceptions.InvalidReservationStateException(
+                        "Only pending reservations can be confirmed"
+                );
+            }
+
             this.status = ReservationStatus.CONFIRMED;
             this.invoice = new Invoice(this);
-
         }
-
         public void cancel() {
 
             this.status = ReservationStatus.CANCELLED;
-            room.setGuest(null); // release room
+            room.setGuest(null);
+            room.setStatus(Status.UNBOOKED);// release room
         }
 
         public void complete() {
 
             this.status = ReservationStatus.COMPLETED;
-            room.setGuest(null); // checkout releases room
+            room.setGuest(null);
+            room.setStatus(Status.UNBOOKED);// checkout releases room
 
         }
 
