@@ -114,7 +114,7 @@ public class Database {
     public static String displayHotelAmenities (){
         StringBuilder result = new StringBuilder();
         for (Amenity a : hotelAmenities){
-            result.append("Amenity" + a.getType() + " is of price " + a.getPrice() + " and count " + a.getCount());
+            result.append("Amenity" + a.getType() + " is of price " + a.getPrice() + " and count " + a.getCount() + "\n");
         }
         return result.toString();
     }
@@ -144,64 +144,59 @@ public class Database {
         hotelAmenities.removeIf (a -> a.getType().equalsIgnoreCase(type));
         refreshAllInvoices();
     }
+    //TODO: Filling the arrays with dummy test data
+
     //CRUD opertions on A TYPE OF ROOM
     //MasterAmenities arrays' methods
-    //TODO: Fill the arrays with dummy data
     //CREATE
-    public static void addAmenityToType (String roomType, Amenity newAmenity) {
-        if (roomType.equalsIgnoreCase("SINGLE")) {
+    public static void addAmenityToType (RoomType roomType, Amenity newAmenity) {
+        if (roomType == RoomType.SINGLE) {
             masterSingleAmenities.add(newAmenity);
-        } else if (roomType.equalsIgnoreCase("DOUBLE")) {
+        } else if (roomType == RoomType.DOUBLE) {
             masterDoubleAmenities.add(newAmenity);
-        } else if (roomType.equalsIgnoreCase("SUITE")) {
-            masterSuiteAmenities.add(newAmenity);
-        }
-        //else TODO: EXCEPTION HANDLING
+        } else masterSuiteAmenities.add(newAmenity);
     }
     //READ
-    public static ArrayList<Amenity> displayAllAmenitiesOfType (String roomType) {
-        if (roomType.equalsIgnoreCase("SINGLE")) {
+    public static ArrayList<Amenity> displayAllAmenitiesOfType (RoomType roomType) {
+        if (roomType == RoomType.SINGLE) {
             return masterSingleAmenities;
-        } else if (roomType.equalsIgnoreCase("DOUBLE")) {
+        } else if (roomType == RoomType.DOUBLE) {
             return masterDoubleAmenities;}
         else return masterSuiteAmenities;
-        //TODO: EXCEPTION HANDLING
     }
     //UPDATE price of an amenity in all rooms of a certain type
-    public static void updateAmenityOfType (String roomType, String amenityType, double newPrice) {
-        if (roomType.equalsIgnoreCase("SINGLE")) {
+    public static void updateAmenityOfType (RoomType roomType, String amenityType, double newPrice) {
+        if (roomType == RoomType.SINGLE) {
             for (Amenity a : masterSingleAmenities) {
                 if (a.getType().equalsIgnoreCase(amenityType)) {
                     a.setPrice(newPrice);
                 }
             }
-        } else if (roomType.equalsIgnoreCase("DOUBLE")) {
+        } else if (roomType == RoomType.DOUBLE) {
             for (Amenity a : masterDoubleAmenities) {
                 if (a.getType().equalsIgnoreCase(amenityType)) {
                     a.setPrice(newPrice);
                 }
             }
-        } else if (roomType.equalsIgnoreCase("SUITE")) {
+        } else {
             for (Amenity a : masterSuiteAmenities) {
                 if (a.getType().equalsIgnoreCase(amenityType)) {
                     a.setPrice(newPrice);
                 }
             }
         }
-        //else TODO: EXCEPTION HANDLING
     }
     //DELETE
-    public static void deleteAmenityFromType (String roomType, String amenityType){
-        if (roomType.equalsIgnoreCase("SINGLE")){
+    public static void deleteAmenityFromType (RoomType roomType, String amenityType){
+        if (roomType == RoomType.SINGLE){
             masterSingleAmenities.removeIf(a -> a.getType().equalsIgnoreCase(amenityType));
         }
-        else if (roomType.equalsIgnoreCase("DOUBLE")){
+        else if (roomType == RoomType.DOUBLE){
             masterDoubleAmenities.removeIf(a -> a.getType().equalsIgnoreCase(amenityType));
         }
-        else if (roomType.equalsIgnoreCase("SUITE")){
+        else {
             masterSuiteAmenities.removeIf(a -> a.getType().equalsIgnoreCase(amenityType));
         }
-        //else TODO:EXCEPTION HANDLING
     }
 // Reservation
     // Create a reservation
