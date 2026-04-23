@@ -278,7 +278,14 @@ public class Database {
     public static ArrayList<Invoice> getInvoices() {
         return new ArrayList<>(invoices);
     }
-
+    public static Invoice getInvoiceById(int id) {
+        for (Invoice i : invoices) {
+            if (i.getInvoiceId() == id) {
+                return i;
+            }
+        }
+        return null;
+    }
     // Update an invoice
     public static void updateInvoice(Invoice updatedInvoice) {
         if (updatedInvoice == null) return;
