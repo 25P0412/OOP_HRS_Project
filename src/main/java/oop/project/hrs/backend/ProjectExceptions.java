@@ -60,4 +60,9 @@ public class ProjectExceptions {
             super("Payment exceeds remaining balance!");
         }
     }
+    public static class InsufficientBalanceException extends BaseException {
+        public InsufficientBalanceException(double balance) {
+            super("User balance of: '" + balance + "' is insufficient!");
+        }
+    }
 }

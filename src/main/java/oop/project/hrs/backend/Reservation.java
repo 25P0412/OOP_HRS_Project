@@ -8,6 +8,7 @@ package oop.project.hrs.backend;
         private LocalDate checkIn;
         private LocalDate checkOut;
         private ReservationStatus status;
+        private Invoice invoice;
 
         public Reservation(Guest guest, Rooms room, LocalDate checkIn, LocalDate checkOut) {
 
@@ -28,6 +29,7 @@ package oop.project.hrs.backend;
             this.checkOut = checkOut;
             this.status = ReservationStatus.PENDING;
             // lock room immediately
+            this.invoice = new Invoice(this, calculateTotalPrice());
             room.setGuest(guest);
             room.setStatus(Status.BOOKED);
         }
@@ -75,6 +77,10 @@ package oop.project.hrs.backend;
         public ReservationStatus getStatus() {
 
             return status;
+        }
+
+        public Invoice getInvoice() {
+            return invoice;
         }
 
        // Update check-in date with validation

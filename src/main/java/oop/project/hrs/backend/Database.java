@@ -112,7 +112,7 @@ public class Database {
         return result.toString();
     }
     public static ArrayList <Amenity> getHotelAmenities (){
-        return new ArrayList<>(hotelAmenities);
+        return hotelAmenities;
     }
     //UPDATE the price of a Hotel Amenity
     public static void updatePriceOfHotelAmenity(String type, double newPrice){
@@ -138,7 +138,7 @@ public class Database {
     //MasterAmenities arrays' methods
     //TODO: Fill the arrays with dummy data
     //CREATE
-    public void addAmenityToType (String roomType, Amenity newAmenity) {
+    public static void addAmenityToType (String roomType, Amenity newAmenity) {
         if (roomType.equalsIgnoreCase("SINGLE")) {
             masterSingleAmenities.add(newAmenity);
         } else if (roomType.equalsIgnoreCase("DOUBLE")) {
@@ -149,7 +149,7 @@ public class Database {
         //else TODO: EXCEPTION HANDLING
     }
     //READ
-    public ArrayList<Amenity> displayAllAmenitiesOfType (String roomType) {
+    public static ArrayList<Amenity> displayAllAmenitiesOfType (String roomType) {
         if (roomType.equalsIgnoreCase("SINGLE")) {
             return masterSingleAmenities;
         } else if (roomType.equalsIgnoreCase("DOUBLE")) {
@@ -158,7 +158,7 @@ public class Database {
         //TODO: EXCEPTION HANDLING
     }
     //UPDATE price of an amenity in all rooms of a certain type
-    public void updateAmenityOfType (String roomType, String amenityType, double newPrice) {
+    public static void updateAmenityOfType (String roomType, String amenityType, double newPrice) {
         if (roomType.equalsIgnoreCase("SINGLE")) {
             for (Amenity a : masterSingleAmenities) {
                 if (a.getType().equalsIgnoreCase(amenityType)) {
@@ -181,7 +181,7 @@ public class Database {
         //else TODO: EXCEPTION HANDLING
     }
     //DELETE
-    public void deleteAmenityFromType (String roomType, String amenityType){
+    public static void deleteAmenityFromType (String roomType, String amenityType){
         if (roomType.equalsIgnoreCase("SINGLE")){
             masterSingleAmenities.removeIf(a -> a.getType().equalsIgnoreCase(amenityType));
         }
@@ -248,17 +248,41 @@ public class Database {
     public static ArrayList<Invoice> getInvoices() {
         return invoices;
     }
-    // Update Invoice total
+    // Update (recalculate total based on reservation data)
     public static void updateInvoiceTotal(Invoice invoice) {
-
         if (invoice != null) {
-
-            double newTotal = invoice.getReservation().calculateTotalPrice();
-            invoice.setTotalAmount(newTotal);
+            invoice.getTotalAmount();
         }
     }
     // Delete an invoice
     public static void removeInvoice(Invoice invoice) {
         invoices.remove(invoice);
+    }
+    // Search for an invoice associated with a specific reservation in the invoices list
+    public static Invoice getInvoiceByReservation(Reservation res) {
+        for (Invoice inv : invoices) {
+            if (inv.getReservation().equals(res)) {
+                return inv;
+            }
+        }
+        return null;
+    }
+
+    public static List displayAvailableRooms() {
+        List<Rooms> available = new ArrayList<>();
+        for (Rooms room : allRooms) {
+            if (room.getStatus() == Status.UNBOOKED) {
+                available.add(room);
+            }
+        }
+        return available;
+    }
+    public static Rooms getRoomByNum(int num) {
+        for (Rooms room : allRooms) {
+            if (room.getRoomNum() == num) {
+                return room;
+            }
+        }
+        return null;
     }
 }

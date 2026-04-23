@@ -2,6 +2,7 @@ package oop.project.hrs.backend;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public abstract class Staff {
     private Role role;
@@ -57,9 +58,10 @@ public abstract class Staff {
     public void setDateofbirth(LocalDate dateofbirth) {
         this.dateofbirth = dateofbirth;
     }
+
+
     public void viewAllGuests() {
         Set<String> allUsernames = Database.getGuestUsernames();
-
         System.out.println("    Total Guests List    ");
         for (String name : allUsernames) {
             Guest guestInfo = Database.getGuestByUsername(name);
@@ -68,22 +70,32 @@ public abstract class Staff {
                 System.out.println("Balance: " + guestInfo.getBalance());
                 System.out.println("Address: " + guestInfo.getAddress());
                 System.out.println("Gender: " + guestInfo.getGender());
-                System.out.println("                     ");
+                System.out.println("room: " + guestInfo.getRoomPreferences());
             }
         }
     }
-    }
+
     public void viewAllReservations() {
-        // Logic to display all reservations from Database
-    }
+            ArrayList<Reservation> allReservations = Database.getReservations();
+            if (allReservations.isEmpty()) {
+                System.out.println("No reservations found.");
+            }
+            else {
+                System.out.println("    List of Current Reservations   ");
+                for (Reservation res : allReservations) {
+                    System.out.println(res);
+                }
+            }
+        }
+
     public void viewallrooms() {
 // Method to display ALL rooms currently in the database
 
             System.out.println(" All Hotel Rooms ");
             for (Rooms r : Database.allRooms) {
-                System.out.println("Room #" + r.getRoomNum() +
-                        " | Type: " + r.getRoomType() +
-                        " | Price: " + r.getBasePrice());
+                System.out.println("Room:" + r.getRoomNum() +
+                        "  Type: " + r.getRoomType() +
+                        " Price: " + r.getBasePrice());
 
         }
     }

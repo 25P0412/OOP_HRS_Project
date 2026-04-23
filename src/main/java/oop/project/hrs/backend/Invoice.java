@@ -27,7 +27,7 @@ import java.util.ArrayList;
             this.paymentAmounts = new ArrayList<>();
             this.paidAmount = 0;
             this.isPaid = false;
-
+            this.totalAmount = totalAmount;
         }
 
 
