@@ -3,8 +3,8 @@ package oop.project.hrs.backend;
     import java.time.LocalDate;
 
     public class Reservation {
-        private static int counter = 1;
-        private int id;
+        private static int reservationIdcounter = 1;
+        private int reservationId;
         private Guest guest;
         private Rooms room;
         private LocalDate checkIn;
@@ -25,7 +25,7 @@ package oop.project.hrs.backend;
             if (checkIn.isAfter(checkOut)) {
                 throw new ProjectExceptions.InvalidDateRangeException("Invalid date range");
             }
-            this.id = counter++;
+            this.reservationId = reservationIdcounter++;
             this.guest = guest;
             this.room = room;
             this.checkIn = checkIn;
@@ -66,7 +66,7 @@ package oop.project.hrs.backend;
 // getters and setters
 
         public int getReservationId() {
-            return id;
+            return reservationId;
         }
 
         public Guest getGuest() {
