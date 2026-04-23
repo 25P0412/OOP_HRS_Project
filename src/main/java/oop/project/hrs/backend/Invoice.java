@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
     public class Invoice {
-        private static int counter = 1;
-        private int id;
+        private static int invoiceIdcounter = 1;
+        private int invoiceId;
         private Reservation reservation;
         private double totalAmount;
 
@@ -21,7 +21,7 @@ import java.util.ArrayList;
             if (reservation == null) {
                 throw new ProjectExceptions.InvalidInvoiceException();
             }
-            this.id = counter++;
+            this.invoiceId = invoiceIdcounter++;
             this.reservation = reservation;
             this.totalAmount = reservation.calculateTotalPrice();
             this.paymentMethods = new ArrayList<>();
@@ -73,8 +73,8 @@ import java.util.ArrayList;
             }
         }
         //Getters
-        public int getId() {
-            return id;
+        public int getInvoiceId() {
+            return invoiceId;
         }
         public Reservation getReservation() {
             return reservation;
