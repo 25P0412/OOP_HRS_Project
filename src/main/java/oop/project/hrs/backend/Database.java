@@ -112,7 +112,7 @@ public class Database {
         return result.toString();
     }
     public static ArrayList <Amenity> getHotelAmenities (){
-        return hotelAmenities;
+        return new ArrayList<>(hotelAmenities);
     }
     //UPDATE the price of a Hotel Amenity
     public static void updatePriceOfHotelAmenity(String type, double newPrice){
@@ -248,10 +248,13 @@ public class Database {
     public static ArrayList<Invoice> getInvoices() {
         return invoices;
     }
-    // Update (recalculate total based on reservation data)
+    // Update Invoice total
     public static void updateInvoiceTotal(Invoice invoice) {
+
         if (invoice != null) {
-            invoice.calculateTotal();
+
+            double newTotal = invoice.getReservation().calculateTotalPrice();
+            invoice.setTotalAmount(newTotal);
         }
     }
     // Delete an invoice

@@ -22,6 +22,7 @@ import java.util.ArrayList;
             }
 
             this.reservation = reservation;
+            this.totalAmount = totalAmount;
             this.paymentMethods = new ArrayList<>();
             this.paymentAmounts = new ArrayList<>();
             this.paidAmount = 0;
@@ -29,6 +30,8 @@ import java.util.ArrayList;
 
         }
 
+
+        // Add payment (supports multiple payments)
         public void addPayment(double amount, PaymentMethod method) {
 
             if (isPaid) {
@@ -70,6 +73,7 @@ import java.util.ArrayList;
         }
 
         public double getPaidAmount() {
+
             return paidAmount;
         }
 
@@ -86,5 +90,9 @@ import java.util.ArrayList;
 
         public LocalDate getPaymentDate() {
             return paymentDate;
+        }
+        //Setter for total amount
+        public void setTotalAmount(double totalAmount) {
+            this.totalAmount = totalAmount;
         }
     }

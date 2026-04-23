@@ -29,6 +29,7 @@ package oop.project.hrs.backend;
             this.status = ReservationStatus.PENDING;
             // lock room immediately
             room.setGuest(guest);
+            room.setStatus(Status.BOOKED);
         }
         public double calculateTotalPrice() {
 
