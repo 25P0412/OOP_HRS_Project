@@ -36,10 +36,7 @@ package oop.project.hrs.backend;
             this.checkIn = checkIn;
             this.checkOut = checkOut;
             this.status = ReservationStatus.PENDING;
-            // lock room immediately
-            room.setGuest(guest);
-            room.setStatus(Status.BOOKED);
-
+            Database.addReservation(this);
         }
         public double calculateTotalPrice() {
 
@@ -133,7 +130,12 @@ package oop.project.hrs.backend;
             }
 
             this.status = ReservationStatus.CONFIRMED;
+            //lock room
+            room.setGuest(guest);
+            room.setStatus(Status.BOOKED);
+            //invoice creation
             this.invoice = new Invoice(this);
+            Database.addInvoice(this.invoice);
         }
         public void cancel() {
 
