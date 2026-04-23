@@ -101,6 +101,9 @@ public class Database {
     public static void removeRoom (int roomNum){
         allRooms.removeIf (r -> r.getRoomNum()== roomNum);
     }
+    public static List<Rooms> getAllRooms() {
+        return Collections.unmodifiableList(allRooms);
+    }
     //hotelAmenities array's methods
     //CREATE
     public static void addHotelAmenities (Amenity newAmenity){
