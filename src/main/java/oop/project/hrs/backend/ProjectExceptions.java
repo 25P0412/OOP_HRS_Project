@@ -25,6 +25,11 @@ public class ProjectExceptions {
             super("Guest and Room cannot be null!");
         }
     }
+    public static class InvalidReservationStateException extends BaseException {
+        public InvalidReservationStateException(String message) {
+            super(message);
+        }
+    }
 
     public static class RoomAlreadyBookedException extends BaseException {
         public RoomAlreadyBookedException() {
