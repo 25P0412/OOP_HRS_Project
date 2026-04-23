@@ -54,6 +54,12 @@ package oop.project.hrs.backend;
 
             return total;
         }
+        public void refreshInvoice() {
+            if (invoice != null && !invoice.isPaid()) {
+                invoice.applyTotalUpdate(calculateTotalPrice());
+                Database.updateInvoice(invoice);
+            }
+        }
 // getters and setters
         public Guest getGuest() {
 

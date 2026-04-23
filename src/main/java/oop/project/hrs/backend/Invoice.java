@@ -29,7 +29,17 @@ import java.util.ArrayList;
             this.paidAmount = 0;
             this.isPaid = false;
         }
+        void applyTotalUpdate(double newTotal) {
+            if (isPaid) {
+                throw new ProjectExceptions.InvoiceAlreadyPaidException();
+            }
 
+            if (newTotal < 0) {
+                throw new ProjectExceptions.InvalidPaymentAmountException();
+            }
+
+            this.totalAmount = newTotal;
+        }
 
         // Add payment (supports multiple payments)
         public void addPayment(double amount, PaymentMethod method) {
@@ -57,7 +67,7 @@ import java.util.ArrayList;
                 paymentDate = LocalDate.now();
             }
 
-            if (paidAmount == totalAmount) {
+            if (Math.abs(paidAmount - totalAmount) < 0.0001){
                 isPaid = true;
                 reservation.complete();
             }

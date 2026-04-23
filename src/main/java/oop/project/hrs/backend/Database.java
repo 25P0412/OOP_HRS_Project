@@ -248,10 +248,16 @@ public class Database {
     public static ArrayList<Invoice> getInvoices() {
         return invoices;
     }
-    // Update (recalculate total based on reservation data)
-    public static void updateInvoiceTotal(Invoice invoice) {
-        if (invoice != null) {
-            invoice.getTotalAmount();
+
+    // Update an invoice
+    public static void updateInvoice(Invoice updatedInvoice) {
+        if (updatedInvoice == null) return;
+
+        for (int i = 0; i < invoices.size(); i++) {
+            if (invoices.get(i).getId() == updatedInvoice.getId()) {
+                invoices.set(i, updatedInvoice);
+                return;
+            }
         }
     }
     // Delete an invoice
