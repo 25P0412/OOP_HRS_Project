@@ -46,21 +46,21 @@ public class Admin extends Staff {
     public void deleteAmenity(String type) {
         Database.deleteHotelAmenity(type);
     }
-    public void addAmenityToTypeTemplate(String roomType, Amenity amenity) {
+    public void addAmenityToTypeTemplate(RoomType roomType, Amenity amenity) {
         Database.addAmenityToType(roomType, amenity);
         System.out.println("New standard amenity added to " + roomType);
     }
-    public void viewTypeTemplateAmenities(String roomType) {
+    public void viewTypeTemplateAmenities(RoomType roomType) {
         ArrayList<Amenity> list = Database.displayAllAmenitiesOfType(roomType);
         System.out.println("Amenities for " + roomType + ": " + list);
     }
 
-    public void updateTypeTemplateAmenity(String roomType, String amenityName, double newPrice) {
+    public void updateTypeTemplateAmenity(RoomType roomType, String amenityName, double newPrice) {
         Database.updateAmenityOfType(roomType, amenityName, newPrice);
         System.out.println("Price updated for " + roomType + " standard amenities.");
     }
 
-    public void removeAmenityFromTypeTemplate(String roomType, String amenityName) {
+    public void removeAmenityFromTypeTemplate(RoomType roomType, String amenityName) {
         Database.deleteAmenityFromType(roomType, amenityName);
         System.out.println("Amenity removed from " + roomType + " template.");
     }
