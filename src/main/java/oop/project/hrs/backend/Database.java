@@ -366,4 +366,10 @@ public class Database {
         }
         return null;
     }
+    //dummy data
+    public static ArrayList<Staff> allStaff = new ArrayList<>();
+    public static void prePopulateData() {
+        allStaff.add(new Admin("admin1", "pass123", Role.ADMIN, LocalDate.of(1990, 1, 1), 40));
+        allStaff.add(new Receptionist("recep1", "pass123", Role.RECEPTIONIST, LocalDate.of(1995, 5, 10), 45));
+    }
 }
