@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.project.hrs.ui.GuestAuthController">
+   <children>
+      <PasswordField fx:id="passwordField" layoutX="226.0" layoutY="187.0" />
+      <Label layoutX="263.0" layoutY="71.0" text="Guest Login" />
+      <Button defaultButton="true" layoutX="263.0" layoutY="297.0" mnemonicParsing="false" onAction="#onLoginButtonClick" text="Login" />
+      <TextField fx:id="usernameField" layoutX="227.0" layoutY="144.0" />
+      <Hyperlink layoutX="327.0" layoutY="256.0" onAction="#switchToGuestRegister" text="Register!" />
+      <Label layoutX="174.0" layoutY="259.0" text="Don't have an account?" />
+      <Label layoutX="156.0" layoutY="148.0" text="Username" />
+      <Label layoutX="158.0" layoutY="191.0" text="Password" />
+      <Hyperlink layoutX="502.0" layoutY="353.0" text="Staff Login" />
+      <StackPane layoutX="6.0" layoutY="230.0" prefHeight="26.0" prefWidth="562.0">
+         <children>
+            <Text fx:id="errorText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-border-color: red;" text="ERROR" textAlignment="CENTER" visible="false" />
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
