@@ -308,6 +308,15 @@ public class Database {
         }
         return null;
     }
+    // Search for an invoice associated with a specific reservation in the invoices list
+    public static Invoice getInvoiceByReservation(Reservation res) {
+        for (Invoice inv : invoices) {
+            if (inv.getReservation().getReservationId() == res.getReservationId()) {
+                return inv;
+            }
+        }
+        return null;
+    }
     public static String displayAllInvoices() {
         StringBuilder result = new StringBuilder();
 
@@ -341,16 +350,6 @@ public class Database {
     public static void removeInvoice(Invoice invoice) {
         invoices.remove(invoice);
     }
-    // Search for an invoice associated with a specific reservation in the invoices list
-    public static Invoice getInvoiceByReservation(Reservation res) {
-        for (Invoice inv : invoices) {
-            if (inv.getReservation().getReservationId() == res.getReservationId()) {
-                return inv;
-            }
-        }
-        return null;
-    }
-
     public static List displayAvailableRooms() {
         List<Rooms> available = new ArrayList<>();
         for (Rooms room : allRooms) {
