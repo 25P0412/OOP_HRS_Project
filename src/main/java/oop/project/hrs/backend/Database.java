@@ -1,0 +1,456 @@
+package oop.project.hrs.backend;
+
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+//Rewrite using hashmaps
+public class Database {
+    //Guests and usernames arrays' definition
+//    private static ArrayList<Guest> guests = new ArrayList<>();
+    private static HashMap<String, Guest> guests = new HashMap<>();
+    private static ArrayList<String> usernames = new ArrayList<>(); //Use this one to check if a username is taken.
+
+    //allRooms' array definition
+    private static ArrayList<Rooms> allRooms = new ArrayList<>();
+
+    //hotelAmenities' array definition
+    private static ArrayList<Amenity> hotelAmenities = new ArrayList <>();
+
+    //MasterAmenities' array definition
+    private static ArrayList <Amenity> masterSingleAmenities = new ArrayList<>();
+    private static ArrayList <Amenity> masterDoubleAmenities = new ArrayList<>();
+    private static ArrayList <Amenity> masterSuiteAmenities = new ArrayList<>();
+
+    // Reservation ArrayList definition
+    private static ArrayList<Reservation> reservations = new ArrayList<>();
+    //Invoice ArrayList definition
+    private static ArrayList<Invoice> invoices = new ArrayList<>();
+
+    //Guests and usernames arrays' methods
+    public static void addGuest(String username, Guest guest) {
+        guests.putIfAbsent(username, guest);
+    }
+    public static void removeGuest(String username) {
+        guests.remove(username);
+        usernames.remove(username);
+    }
+    public static void addUsername(String username) {
+        usernames.add(username);
+    }
+    public static void removeUsername(String username) {
+        usernames.remove(username);
+    };
+    public static boolean usernameExists(String search) {
+        return usernames.contains(search);
+    }
+    public static List<String> getUsernames() {
+        return Collections.unmodifiableList(usernames);
+    }
+   public static Set<String> getGuestUsernames() {
+        return Collections.unmodifiableSet(guests.keySet());
+    }
+    public static Guest getGuestByUsername(String username) {
+        return guests.get(username);
+    }
+
+    //allRooms array's methods
+    //CREATE
+    public static void addRoom (Rooms newRoom){
+        allRooms.add(newRoom);
+    }
+    //READ
+    public static String displayAllRooms (){
+        StringBuilder result = new StringBuilder();
+        for (Rooms r : allRooms){
+            result.append("Room #" + r.getRoomNum() + " of type " + r.getRoomType() + "\n");
+        }
+        return result.toString();
+    }
+    //UPDATE room number
+    public static void updateRoomNum (int oldNum, int newNum){
+        for (Rooms r : allRooms){
+            if (r.getRoomNum() == oldNum){
+                r.setRoomNum(newNum);
+            }
+        }
+    }
+    //UPDATE room type
+    public static void updateRoomType (int roomNum, RoomType roomType){
+        for (Rooms r : allRooms){
+            if (r.getRoomNum() == roomNum){
+                r.setRoomType(roomType);
+            }
+        }
+        for (Reservation res : getReservationsByRoom(roomNum)) {
+            res.refreshInvoice();
+        }
+    }
+    //UPDATE room status
+    public static void updateRoomStatus (int roomNum, Status newStatus){
+        for (Rooms r : allRooms){
+            if (r.getRoomNum()==roomNum){
+                r.setStatus(newStatus);
+            }
+        }
+    }
+    //DELETE
+    public static void removeRoom (int roomNum){
+        allRooms.removeIf (r -> r.getRoomNum()== roomNum);
+    }
+    public static List<Rooms> getAllRooms() {
+        return Collections.unmodifiableList(allRooms);
+    }
+    //hotelAmenities array's methods
+    //CREATE
+    public static void addHotelAmenities (Amenity newAmenity){
+        hotelAmenities.add (newAmenity);
+        refreshAllInvoices();
+    }
+    //READ
+    public static String displayHotelAmenities (){
+        StringBuilder result = new StringBuilder();
+        for (Amenity a : hotelAmenities){
+            result.append("Amenity" + a.getType() + " is of price " + a.getPrice() + " and count " + a.getCount() + "\n");
+        }
+        return result.toString();
+    }
+    public static ArrayList <Amenity> getHotelAmenities (){
+        return new ArrayList<>(hotelAmenities);
+    }
+    //UPDATE the price of a Hotel Amenity
+    public static void updatePriceOfHotelAmenity(String type, double newPrice){
+        for (Amenity a : hotelAmenities){
+            if (a.getType().equalsIgnoreCase(type)){
+               a.setPrice(newPrice);
+            }
+        }
+        refreshAllInvoices();
+    }
+    //UPDATE the count of a Hotel Amenity
+    public static void updateCountOfHotelAmenity(String type, int newCount){
+        for (Amenity a : hotelAmenities){
+            if (a.getType().equalsIgnoreCase(type)){
+                a.setCount(newCount);
+            }
+        }
+        refreshAllInvoices();
+    }
+    //DELETE
+    public static void deleteHotelAmenity (String type){
+        hotelAmenities.removeIf (a -> a.getType().equalsIgnoreCase(type));
+        refreshAllInvoices();
+    }
+    //Filling the arrays with test data
+    {
+        //Add some rooms
+        addRoom(new singleRoom(1, new Guest("ahmed-mostafa", "ahm1", Gender.MALE, LocalDate.of(2007,7,8), 7800, "13 AlThawra St"), masterSingleAmenities));
+        addRoom(new doubleRoom(2, new Guest("nadaashraf22", "nada@00", Gender.FEMALE, LocalDate.of(2002, 12, 16), 5000, "7 AlHegaz St"), masterDoubleAmenities));
+        addRoom(new suiteRoom(3, 4, new Guest("salma123", "salemsalmaASU", Gender.FEMALE, LocalDate.of(2004, 7, 23), 9850, "15 AlBa7r St"), masterSuiteAmenities));
+        addRoom (new doubleRoom(4, new Guest("marly.emad00","zakhary678", Gender.FEMALE, LocalDate.of(2006, 12, 9), 3700, "23 Cleopatra St"), masterDoubleAmenities));
+        //Initialize the hotel amenities
+        addHotelAmenities(new Amenity("AC", 105.00, 7));
+        addHotelAmenities(new Amenity("Heated Pool", 89.20, 3));
+        addHotelAmenities(new Amenity("Jacuzzi", 250.50, 2));
+        //Initialize the amenities of each room type
+        addAmenityToType(RoomType.SINGLE, new Amenity("Towel", 70.00, 1));
+        addAmenityToType(RoomType.SINGLE, new Amenity("Shampoo", 55.00, 2));
+        addAmenityToType(RoomType.SINGLE, new Amenity("Shower Gel", 60.00, 2));
+        addAmenityToType(RoomType.SINGLE, new Amenity("Slippers", 93.40, 1));
+        addAmenityToType(RoomType.SINGLE, new Amenity("Electronic Safe", 105.30, 1));
+        addAmenityToType(RoomType.DOUBLE, new Amenity("Towel", 70.00, 2));
+        addAmenityToType(RoomType.DOUBLE, new Amenity("Shampoo", 55.00, 4));
+        addAmenityToType(RoomType.DOUBLE, new Amenity("Shower Gel", 60.00, 4));
+        addAmenityToType(RoomType.DOUBLE, new Amenity("Slippers", 93.40, 2));
+        addAmenityToType(RoomType.DOUBLE, new Amenity("Electronic Safe", 105.30, 1));
+        addAmenityToType(RoomType.SUITE, new Amenity("Towel", 70.00, 5));
+        addAmenityToType(RoomType.SUITE, new Amenity("Shampoo", 55.00, 10));
+        addAmenityToType(RoomType.SUITE, new Amenity("Shower Gel", 60.00, 10));
+        addAmenityToType(RoomType.SUITE, new Amenity("Slippers", 93.40, 10));
+        addAmenityToType(RoomType.SUITE, new Amenity("Electronic Safe", 105.30, 1));
+    }
+    //CRUD operations on A TYPE OF ROOM
+    //MasterAmenities arrays' methods
+    //CREATE
+    public static void addAmenityToType (RoomType roomType, Amenity newAmenity) {
+        if (roomType == RoomType.SINGLE) {
+            masterSingleAmenities.add(newAmenity);
+        } else if (roomType == RoomType.DOUBLE) {
+            masterDoubleAmenities.add(newAmenity);
+        } else masterSuiteAmenities.add(newAmenity);
+    }
+    //READ
+    public static ArrayList<Amenity> displayAllAmenitiesOfType (RoomType roomType) {
+        if (roomType == RoomType.SINGLE) {
+            return masterSingleAmenities;
+        } else if (roomType == RoomType.DOUBLE) {
+            return masterDoubleAmenities;}
+        else return masterSuiteAmenities;
+    }
+    //UPDATE price of an amenity in all rooms of a certain type
+    public static void updateAmenityOfType (RoomType roomType, String amenityType, double newPrice) {
+        if (roomType == RoomType.SINGLE) {
+            for (Amenity a : masterSingleAmenities) {
+                if (a.getType().equalsIgnoreCase(amenityType)) {
+                    a.setPrice(newPrice);
+                }
+            }
+        } else if (roomType == RoomType.DOUBLE) {
+            for (Amenity a : masterDoubleAmenities) {
+                if (a.getType().equalsIgnoreCase(amenityType)) {
+                    a.setPrice(newPrice);
+                }
+            }
+        } else {
+            for (Amenity a : masterSuiteAmenities) {
+                if (a.getType().equalsIgnoreCase(amenityType)) {
+                    a.setPrice(newPrice);
+                }
+            }
+        }
+    }
+    //DELETE
+    public static void deleteAmenityFromType (RoomType roomType, String amenityType){
+        if (roomType == RoomType.SINGLE){
+            masterSingleAmenities.removeIf(a -> a.getType().equalsIgnoreCase(amenityType));
+        }
+        else if (roomType == RoomType.DOUBLE){
+            masterDoubleAmenities.removeIf(a -> a.getType().equalsIgnoreCase(amenityType));
+        }
+        else {
+            masterSuiteAmenities.removeIf(a -> a.getType().equalsIgnoreCase(amenityType));
+        }
+    }
+// Reservation
+    // Create a reservation
+    public static void addReservation(Reservation reservation) {
+        reservations.add(reservation);
+    }
+    // Read all reservations
+    public static ArrayList<Reservation> getReservations() {
+       return new ArrayList<>(reservations);
+    }
+    public static Reservation getReservationById(int id) {
+        for (Reservation r : reservations) {
+            if (r.getReservationId() == id) {
+                return r;
+            }
+        }
+        return null;
+    }
+    public static List<Reservation> getReservationsByGuest(String username) {
+        List<Reservation> result = new ArrayList<>();
+
+        for (Reservation r : reservations) {
+            if (r.getGuest() != null &&
+                    r.getGuest().getUsername().equals(username)) {
+                result.add(r);
+            }
+        }
+        return result;
+    }
+    public static List<Reservation> getReservationsByRoom(int roomNum) {
+        List<Reservation> result = new ArrayList<>();
+
+        for (Reservation r : reservations) {
+            if (r.getRoom() != null &&
+                    r.getRoom().getRoomNum() == roomNum) {
+                result.add(r);
+            }
+        }
+        return result;
+    }
+    public static String displayAllReservations() {
+        StringBuilder result = new StringBuilder();
+
+        for (Reservation r : reservations) {
+            result.append("Reservation ID: ").append(r.getReservationId()).append("\n")
+                    .append("Guest: ").append(r.getGuest().getUsername()).append("\n")
+                    .append("Room: ").append(r.getRoom().getRoomNum()).append("\n")
+                    .append("Check-In: ").append(r.getCheckIn()).append("\n")
+                    .append("Check-Out: ").append(r.getCheckOut()).append("\n")
+                    .append("Status: ").append(r.getStatus()).append("\n")
+                    .append("----------------------\n");
+        }
+
+        return result.toString();
+    }
+    // Update check-in date
+    public static void updateReservationCheckIn(Reservation reservation, LocalDate newCheckIn) {
+        if (reservation != null && newCheckIn != null) {
+            reservation.setCheckIn(newCheckIn);
+        }
+    }
+
+    // Update check-out date
+    public static void updateReservationCheckOut(Reservation reservation, LocalDate newCheckOut) {
+        if (reservation != null && newCheckOut != null) {
+            reservation.setCheckOut(newCheckOut);
+        }
+    }
+
+    // Update status (using business methods)
+    public static void confirmReservation(Reservation reservation) {
+        if (reservation != null) {
+            reservation.confirm();
+        }
+    }
+    public static void cancelReservation(Reservation reservation) {
+        if (reservation != null) {
+            reservation.cancel();
+        }
+    }
+
+    public static void completeReservation(Reservation reservation) {
+        if (reservation != null) {
+            reservation.complete();
+        }
+    }
+
+    // Delete a reservation
+    public static void removeReservation(Reservation reservation) {
+        reservations.remove(reservation);
+    }
+// Invoice
+    // Create an invoice
+    public static void addInvoice(Invoice invoice) {
+        invoices.add(invoice);
+    }
+
+    // Read all invoices
+    public static ArrayList<Invoice> getInvoices() {
+        return new ArrayList<>(invoices);
+    }
+    public static Invoice getInvoiceById(int id) {
+        for (Invoice i : invoices) {
+            if (i.getInvoiceId() == id) {
+                return i;
+            }
+        }
+        return null;
+    }
+    public static String displayAllInvoices() {
+        StringBuilder result = new StringBuilder();
+
+        for (Invoice i : invoices) {
+            result.append("Invoice ID: ").append(i.getInvoiceId()).append("\n")
+                    .append("Reservation ID: ")
+                    .append(i.getReservation().getReservationId()).append("\n")
+                    .append("Total Amount: ").append(i.getTotalAmount()).append("\n")
+                    .append("----------------------\n");
+        }
+
+        return result.toString();
+    }
+    // Update an invoice
+    public static void updateInvoice(Invoice updatedInvoice) {
+        if (updatedInvoice == null) return;
+
+        for (int i = 0; i < invoices.size(); i++) {
+            if (invoices.get(i).getInvoiceId() == updatedInvoice.getInvoiceId()) {
+                invoices.set(i, updatedInvoice);
+                return;
+            }
+        }
+    }
+    public static void refreshAllInvoices() {
+        for (Reservation r : reservations) {
+            r.refreshInvoice();
+        }
+    }
+    // Delete an invoice
+    public static void removeInvoice(Invoice invoice) {
+        invoices.remove(invoice);
+    }
+    // Search for an invoice associated with a specific reservation in the invoices list
+    public static Invoice getInvoiceByReservation(Reservation res) {
+        for (Invoice inv : invoices) {
+            if (inv.getReservation().getReservationId() == res.getReservationId()) {
+                return inv;
+            }
+        }
+        return null;
+    }
+    static {
+        Guest g1 = new Guest("guest1", "pass1", Gender.MALE,
+                LocalDate.of(2000, 1, 1), 1234, "Cairo");
+        Guest g2 = new Guest("guest2", "pass2", Gender.FEMALE,
+                LocalDate.of(2001, 5, 10), 5678, "Giza");
+        Guest g3 = new Guest("guest3", "pass3", Gender.MALE,
+                LocalDate.of(1999, 8, 20), 9999, "Alex");
+
+        addGuest("guest1", g1);
+        addGuest("guest2", g2);
+        addGuest("guest3", g3);
+
+        addUsername("guest1");
+        addUsername("guest2");
+        addUsername("guest3");
+
+        //Reservation 1
+        Reservation r1 = new Reservation(
+                g1,
+                getRoomByNum(1),
+                LocalDate.now().plusDays(1),
+                LocalDate.now().plusDays(3)
+        );
+
+        r1.confirm();
+
+        r1.getInvoice().addPayment(
+                r1.getInvoice().getTotalAmount(),
+                PaymentMethod.CASH
+        );
+
+        // Reservation 2
+        Reservation r2 = new Reservation(
+                g2,
+                getRoomByNum(2),
+                LocalDate.now().plusDays(2),
+                LocalDate.now().plusDays(5)
+        );
+
+        r2.confirm();
+
+        Invoice inv2 = r2.getInvoice();
+        inv2.addPayment(200, PaymentMethod.CASH);
+        inv2.addPayment(inv2.getTotalAmount() - 200, PaymentMethod.CREDIT_CARD);
+
+        // Reservation 3
+        Reservation r3 = new Reservation(
+                g3,
+                getRoomByNum(3),
+                LocalDate.now().plusDays(3),
+                LocalDate.now().plusDays(6)
+        );
+
+        r3.confirm();
+
+        r3.getInvoice().addPayment(
+                r3.getInvoice().getTotalAmount(),
+                PaymentMethod.ONLINE
+        );
+    }
+
+
+    public static List<Rooms> displayAvailableRooms() {
+        List<Rooms> available = new ArrayList<>();
+        for (Rooms room : allRooms) {
+            if (room.getStatus() == Status.UNBOOKED) {
+                available.add(room);
+            }
+        }
+        return available;
+    }
+    public static Rooms getRoomByNum(int num) {
+        for (Rooms room : allRooms) {
+            if (room.getRoomNum() == num) {
+                return room;
+            }
+        }
+        return null;
+    }
+}
