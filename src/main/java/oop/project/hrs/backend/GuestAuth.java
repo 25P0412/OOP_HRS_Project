@@ -3,7 +3,7 @@ package oop.project.hrs.backend;
 import java.time.LocalDate;
 
 public class GuestAuth {
-    public static void register(String username, String password, Gender gender, LocalDate dateOfBirth, double balance, String address, String roomPreferences) {
+    public static void register(String username, String password, Gender gender, LocalDate dateOfBirth, double balance, String address) {
         if (Database.usernameExists(username)) { //Check if username is taken
             throw new ProjectExceptions.UsernameTakenException(username);
         }
@@ -11,7 +11,7 @@ public class GuestAuth {
             throw new ProjectExceptions.InvalidPasswordException();
         }
         Database.addUsername(username);
-        Database.addGuest(username, new Guest(username, password, gender, dateOfBirth, balance, address, roomPreferences));
+        Database.addGuest(username, new Guest(username, password, gender, dateOfBirth, balance, address));
     }
     public static Guest login(String username, String password) { //find better way to implement it
         if (!Database.usernameExists(username) || !Database.getGuestByUsername(username).getPassword().equals(password)) {

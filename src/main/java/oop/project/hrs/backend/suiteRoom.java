@@ -6,6 +6,6 @@ public class suiteRoom extends Rooms {
     //Constructor
     public suiteRoom (int roomNum, int numOfGuests, Guest guest, ArrayList <Amenity> masterSuiteAmenities){
         //TODO: An error message to ensure that the number of guests does NOT exceed 5
-        super ("Suite", Status.BOOKED, masterSuiteAmenities, roomNum, numOfGuests, 5, 7500.00, guest);
+        super (RoomType.SUITE, Status.BOOKED, masterSuiteAmenities, roomNum, numOfGuests, 5, 7500.00, guest);
     }
 }

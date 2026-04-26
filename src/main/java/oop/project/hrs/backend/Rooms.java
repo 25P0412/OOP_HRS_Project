@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Rooms {
     //"Associated with one room type" requirement.
-    private String roomType;
+    private RoomType roomType;
 
     //Each room is associated with its own amenities based on its type.
     private ArrayList<Amenity> roomAmenities;
@@ -19,11 +19,10 @@ public abstract class Rooms {
     private Guest guest;
 
     //Constructor
-    public Rooms (String roomType, Status status, ArrayList <Amenity> roomAmenities, int roomNum, int numOfGuests, int numOfBeds, double basePrice, Guest guest){
+    public Rooms (RoomType roomType, Status status, ArrayList <Amenity> roomAmenities, int roomNum, int numOfGuests, int numOfBeds, double basePrice, Guest guest){
         this.roomType=roomType;
         this.status=status;
         this.roomAmenities=new ArrayList <>(roomAmenities);
-        this.roomType=roomType;
         this.roomNum=roomNum;
         this.numOfGuests=numOfGuests;
         this.numOfBeds=numOfBeds;
@@ -33,8 +32,10 @@ public abstract class Rooms {
     }
 
     //Getters and setters methods
-    public String getRoomType () {return roomType;}
-    public void setRoomType (String roomType) {this.roomType=roomType;}
+    public RoomType getRoomType () {return roomType;};
+    public void setRoomType (RoomType roomType) {this.roomType=roomType;}
+    public Status getStatus () {return status;}
+    public void setStatus (Status status) {this.status=status;}
     public int getRoomNum () {return roomNum;}
     public void setRoomNum (int roomNum) {this.roomNum=roomNum;}
     public int getNumOfGuests () {return numOfGuests;}
@@ -45,8 +46,6 @@ public abstract class Rooms {
     public void setBasePrice(double basePrice) {this.basePrice=basePrice;}
     public Guest getGuest () {return guest;}
     public void setGuest (Guest guest) {this.guest=guest;}
-    public Status getStatus () {return status;}
-    public void setStatus (Status status) {this.status=status;}
 
     //Getter and setters methods for modifying an amenity in AN INTENDED ROOM
     //Getter (READ)
@@ -56,12 +55,20 @@ public abstract class Rooms {
     public void addRoomAmenity (Amenity newAmenity){
         this.roomAmenities.add(newAmenity);
     }
-    //UPDATE the price of a specific amenity
-    public void updateRoomAmenity (String type, double newPrice){
+    //UPDATE the PRICE of a specific amenity
+    public void updatePriceOfRoomAmenity (String type, double newPrice){
         for (Amenity a : roomAmenities){
             if (a.getType().equalsIgnoreCase(type)){
                 a.setPrice(newPrice);
                 break;
+            }
+        }
+    }
+    //UPDATE the COUNT of a specific amenity
+    public void updateCountOfRoomAmenity (String type, int newCount){
+        for (Amenity a : roomAmenities){
+            if (a.getType().equalsIgnoreCase(type)){
+                a.setCount(newCount);
             }
         }
     }

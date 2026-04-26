@@ -70,7 +70,7 @@ public abstract class Staff {
                 System.out.println("Balance: " + guestInfo.getBalance());
                 System.out.println("Address: " + guestInfo.getAddress());
                 System.out.println("Gender: " + guestInfo.getGender());
-                System.out.println("room: " + guestInfo.getRoomPreferences());
+                System.out.println("room: " + guestInfo.getPreferredTypes());
             }
         }
     }
@@ -90,9 +90,8 @@ public abstract class Staff {
 
     public void viewallrooms() {
 // Method to display ALL rooms currently in the database
-
             System.out.println(" All Hotel Rooms ");
-            for (Rooms r : Database.allRooms) {
+            for (Rooms r : Database.getAllRooms()) {
                 System.out.println("Room:" + r.getRoomNum() +
                         "  Type: " + r.getRoomType() +
                         " Price: " + r.getBasePrice());
