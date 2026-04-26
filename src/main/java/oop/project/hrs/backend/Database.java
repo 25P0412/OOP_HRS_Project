@@ -155,7 +155,22 @@ public class Database {
         addHotelAmenities(new Amenity("AC", 105.00, 7));
         addHotelAmenities(new Amenity("Heated Pool", 89.20, 3));
         addHotelAmenities(new Amenity("Jacuzzi", 250.50, 2));
-        //TODO: Initialize the amenities of each room type
+        //Initialize the amenities of each room type
+        addAmenityToType(RoomType.SINGLE, new Amenity("Towel", 70.00, 1));
+        addAmenityToType(RoomType.SINGLE, new Amenity("Shampoo", 55.00, 2));
+        addAmenityToType(RoomType.SINGLE, new Amenity("Shower Gel", 60.00, 2));
+        addAmenityToType(RoomType.SINGLE, new Amenity("Slippers", 93.40, 1));
+        addAmenityToType(RoomType.SINGLE, new Amenity("Electronic Safe", 105.30, 1));
+        addAmenityToType(RoomType.DOUBLE, new Amenity("Towel", 70.00, 2));
+        addAmenityToType(RoomType.DOUBLE, new Amenity("Shampoo", 55.00, 4));
+        addAmenityToType(RoomType.DOUBLE, new Amenity("Shower Gel", 60.00, 4));
+        addAmenityToType(RoomType.DOUBLE, new Amenity("Slippers", 93.40, 2));
+        addAmenityToType(RoomType.DOUBLE, new Amenity("Electronic Safe", 105.30, 1));
+        addAmenityToType(RoomType.SUITE, new Amenity("Towel", 70.00, 5));
+        addAmenityToType(RoomType.SUITE, new Amenity("Shampoo", 55.00, 10));
+        addAmenityToType(RoomType.SUITE, new Amenity("Shower Gel", 60.00, 10));
+        addAmenityToType(RoomType.SUITE, new Amenity("Slippers", 93.40, 10));
+        addAmenityToType(RoomType.SUITE, new Amenity("Electronic Safe", 105.30, 1));
     }
     //CRUD operations on A TYPE OF ROOM
     //MasterAmenities arrays' methods

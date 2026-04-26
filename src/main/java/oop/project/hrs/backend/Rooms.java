@@ -19,7 +19,7 @@ public abstract class Rooms {
     private Guest guest;
 
     //Constructor
-    public Rooms (RoomType roomType, Status status, ArrayList <Amenity> roomAmenities, int roomNum, int numOfGuests, int numOfBeds, double basePrice, Guest guest){
+    protected Rooms (RoomType roomType, Status status, ArrayList <Amenity> roomAmenities, int roomNum, int numOfGuests, int numOfBeds, double basePrice, Guest guest){
         this.roomType=roomType;
         this.status=status;
         this.roomAmenities=new ArrayList <>(roomAmenities);
