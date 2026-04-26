@@ -374,6 +374,67 @@ public class Database {
         }
         return null;
     }
+    static {
+        Guest g1 = new Guest("guest1", "pass1", Gender.MALE,
+                LocalDate.of(2000, 1, 1), 1234, "Cairo");
+        Guest g2 = new Guest("guest2", "pass2", Gender.FEMALE,
+                LocalDate.of(2001, 5, 10), 5678, "Giza");
+        Guest g3 = new Guest("guest3", "pass3", Gender.MALE,
+                LocalDate.of(1999, 8, 20), 9999, "Alex");
+
+        addGuest("guest1", g1);
+        addGuest("guest2", g2);
+        addGuest("guest3", g3);
+
+        addUsername("guest1");
+        addUsername("guest2");
+        addUsername("guest3");
+
+        //Reservation 1
+        Reservation r1 = new Reservation(
+                g1,
+                getRoomByNum(1),
+                LocalDate.now().plusDays(1),
+                LocalDate.now().plusDays(3)
+        );
+
+        r1.confirm();
+
+        r1.getInvoice().addPayment(
+                r1.getInvoice().getTotalAmount(),
+                PaymentMethod.CASH
+        );
+
+        // Reservation 2
+        Reservation r2 = new Reservation(
+                g2,
+                getRoomByNum(2),
+                LocalDate.now().plusDays(2),
+                LocalDate.now().plusDays(5)
+        );
+
+        r2.confirm();
+
+        Invoice inv2 = r2.getInvoice();
+        inv2.addPayment(200, PaymentMethod.CASH);
+        inv2.addPayment(inv2.getTotalAmount() - 200, PaymentMethod.CREDIT_CARD);
+
+        // Reservation 3
+        Reservation r3 = new Reservation(
+                g3,
+                getRoomByNum(3),
+                LocalDate.now().plusDays(3),
+                LocalDate.now().plusDays(6)
+        );
+
+        r3.confirm();
+
+        r3.getInvoice().addPayment(
+                r3.getInvoice().getTotalAmount(),
+                PaymentMethod.ONLINE
+        );
+    }
+
 
     public static List<Rooms> displayAvailableRooms() {
         List<Rooms> available = new ArrayList<>();
