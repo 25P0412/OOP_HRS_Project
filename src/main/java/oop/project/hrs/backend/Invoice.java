@@ -94,10 +94,10 @@ import java.util.ArrayList;
         }
 
         public ArrayList<PaymentMethod> getPaymentMethods() {
-            return paymentMethods;
+            return new ArrayList<>(paymentMethods);
         }
         public ArrayList<Double> getPaymentAmounts() {
-            return paymentAmounts;
+            return new ArrayList<>(paymentAmounts);
         }
 
         public LocalDate getPaymentDate() {
