@@ -144,9 +144,20 @@ public class Database {
         hotelAmenities.removeIf (a -> a.getType().equalsIgnoreCase(type));
         refreshAllInvoices();
     }
-    //TODO: Filling the arrays with dummy test data
-
-    //CRUD opertions on A TYPE OF ROOM
+    //Filling the arrays with test data
+    {
+        //Add some rooms
+        addRoom(new singleRoom(1, new Guest("ahmed-mostafa", "ahm1", Gender.MALE, LocalDate.of(2007,7,8), 7800, "13 AlThawra St"), masterSingleAmenities));
+        addRoom(new doubleRoom(2, new Guest("nadaashraf22", "nada@00", Gender.FEMALE, LocalDate.of(2002, 12, 16), 5000, "7 AlHegaz St"), masterDoubleAmenities));
+        addRoom(new suiteRoom(3, 4, new Guest("salma123", "salemsalmaASU", Gender.FEMALE, LocalDate.of(2004, 7, 23), 9850, "15 AlBa7r St"), masterSuiteAmenities));
+        addRoom (new doubleRoom(4, new Guest("marly.emad00","zakhary678", Gender.FEMALE, LocalDate.of(2006, 12, 9), 3700, "23 Cleopatra St"), masterDoubleAmenities));
+        //Initialize the hotel amenities
+        addHotelAmenities(new Amenity("AC", 105.00, 7));
+        addHotelAmenities(new Amenity("Heated Pool", 89.20, 3));
+        addHotelAmenities(new Amenity("Jacuzzi", 250.50, 2));
+        //TODO: Initialize the amenities of each room type
+    }
+    //CRUD operations on A TYPE OF ROOM
     //MasterAmenities arrays' methods
     //CREATE
     public static void addAmenityToType (RoomType roomType, Amenity newAmenity) {
