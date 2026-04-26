@@ -145,7 +145,7 @@ public class Database {
         refreshAllInvoices();
     }
     //Filling the arrays with test data
-    {
+    static {
         //Add some rooms
         addRoom(new singleRoom(1, new Guest("ahmed-mostafa", "ahm1", Gender.MALE, LocalDate.of(2007,7,8), 7800, "13 AlThawra St"), masterSingleAmenities));
         addRoom(new doubleRoom(2, new Guest("nadaashraf22", "nada@00", Gender.FEMALE, LocalDate.of(2002, 12, 16), 5000, "7 AlHegaz St"), masterDoubleAmenities));
@@ -155,6 +155,29 @@ public class Database {
         addHotelAmenities(new Amenity("AC", 105.00, 7));
         addHotelAmenities(new Amenity("Heated Pool", 89.20, 3));
         addHotelAmenities(new Amenity("Jacuzzi", 250.50, 2));
+
+        // Reservations
+        Guest g1 = new Guest("guest1", "pass1", Gender.MALE,
+                LocalDate.of(2000, 1, 1), 1234, "Cairo");
+
+        addGuest("guest1", g1);
+        addUsername("guest1");
+
+        Rooms room1 = getRoomByNum(1);
+
+        Reservation r1 = new Reservation(
+                g1,
+                room1,
+                LocalDate.now().plusDays(1),
+                LocalDate.now().plusDays(3)
+        );
+
+        // confirm creates invoice automatically
+        r1.confirm();
+        //Payments
+        Invoice inv1 = r1.getInvoice();
+        inv1.addPayment(100, PaymentMethod.CASH);
+        inv1.addPayment(inv1.getTotalAmount() - 100, PaymentMethod.CREDIT_CARD);
         //TODO: Initialize the amenities of each room type
     }
     //CRUD operations on A TYPE OF ROOM
