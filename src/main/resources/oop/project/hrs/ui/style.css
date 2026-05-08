@@ -1,0 +1,147 @@
+/* General Root Styles */
+.root {
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-background-color: #f4f7f6;
+}
+
+/* Header Section */
+.header-section {
+    -fx-background-color: #2c3e50;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+.header-text {
+    -fx-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.welcome-text {
+    -fx-text-fill: #ecf0f1;
+    -fx-font-size: 14px;
+    -fx-font-style: italic;
+}
+
+/* Sidebar Navigation */
+.sidebar {
+    -fx-background-color: #34495e;
+    -fx-min-width: 200px;
+}
+
+.sidebar .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #bdc3c7;
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+    -fx-background-radius: 0;
+}
+
+.sidebar .button:hover {
+    -fx-background-color: #1abc9c;
+    -fx-text-fill: white;
+}
+
+.button-logout {
+    -fx-border-color: #e74c3c;
+    -fx-border-width: 1px;
+    -fx-text-fill: #e74c3c !important;
+}
+
+.button-logout:hover {
+    -fx-background-color: #e74c3c !important;
+    -fx-text-fill: white !important;
+}
+
+/* Content Area Components */
+.section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.titled-pane {
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+}
+
+.titled-pane > .content {
+    -fx-background-color: white;
+    -fx-border-color: #dcdde1;
+}
+
+/* Balance Highlights */
+.balance-value {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #27ae60; /* Green for positive financial info */
+}
+
+/* TableView Styling */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #dcdde1;
+    -fx-selection-bar: #3498db;
+}
+
+.table-view .column-header {
+    -fx-background-color: #ecf0f1;
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+}
+
+.table-view .cell {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10;
+}
+
+/* Footer / Status Bar */
+.footer {
+    -fx-background-color: #bdc3c7;
+    -fx-border-color: #95a5a6;
+    -fx-border-width: 1 0 0 0;
+}
+
+.footer .label {
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 11px;
+}
+.content-area {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+.field-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #7f8c8d;
+}
+
+.field-value {
+    -fx-font-size: 14px;
+    -fx-text-fill: #2c3e50;
+}
+
+.balance-highlight {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #27ae60;
+}
+
+.text-area-display {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #dcdde1;
+}
+
+.button-primary {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-padding: 8 20;
+}
+
+.button-secondary {
+    -fx-background-color: #ecf0f1;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 8 20;
+}
