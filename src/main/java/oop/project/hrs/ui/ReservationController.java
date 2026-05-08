@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import oop.project.hrs.backend.*;
@@ -54,6 +55,15 @@ public class ReservationController {
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Booking Failed", e.getMessage());
         }
+    }
+    @FXML
+    private void handleLogout(ActionEvent event) {
+        try {
+            javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("Login.fxml"));
+            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) { e.printStackTrace(); }
     }
         private void showAlert(Alert.AlertType type, String title, String content) {
             Alert alert = new Alert(type);
