@@ -57,6 +57,23 @@ public class ReservationController {
         }
     }
     @FXML
+    private void handleCancelReservation(ActionEvent event) {
+        Reservation selected = reservationTable.getSelectionModel().getSelectedItem();
+
+        if (selected == null) {
+            showAlert(Alert.AlertType.WARNING, "Selection Required", "Please select a reservation to cancel.");
+            return;
+        }
+
+        try {
+            selected.cancel(); // Backend logic to release room
+            statusLabel.setText("Reservation #" + selected.getReservationId() + " has been cancelled.");
+            refreshTable();
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Cancellation Failed", e.getMessage());
+        }
+    }
+    @FXML
     private void handleLogout(ActionEvent event) {
         try {
             javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("Login.fxml"));

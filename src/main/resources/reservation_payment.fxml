@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
+<BorderPane fx:controller="oop.project.hrs.ui.ReservationController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
@@ -81,8 +81,8 @@
                   </VBox>
                   <HBox alignment="CENTER_LEFT" layoutX="38.0" layoutY="245.0" prefHeight="45.0" prefWidth="251.0" spacing="15.0">
                      <children>
-                        <Button fx:id="btnSave" alignment="CENTER" mnemonicParsing="false" onAction="#handleSave" text="Confirm Booking" />
-                        <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleCancel" text="Cancel Reservation" textFill="#f70d0d" />
+                        <Button fx:id="btnSave" alignment="CENTER" mnemonicParsing="false" onAction="#handleConfirmBooking" text="Confirm Booking" />
+                        <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleCancelReservation" text="Cancel Reservation" textFill="#f70d0d" />
                      </children>
                   </HBox>
                </children>
