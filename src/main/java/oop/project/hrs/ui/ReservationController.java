@@ -33,4 +33,33 @@ public class ReservationController {
         masterData.setAll(Database.getReservations());
         reservationTable.setItems(masterData);
     }
-}
+    @FXML
+    private void handleConfirmBooking(ActionEvent event) {
+        try {
+            if (guestNameField.getText().isEmpty() || roomNumField.getText().isEmpty()) {
+                showAlert(Alert.AlertType.WARNING, "Data Missing", "Please fill all fields!");
+                return;
+            }
+
+            Guest guest = Database.getGuestByUsername(guestNameField.getText().trim());
+            Rooms room = Database.getRoomByNum(Integer.parseInt(roomNumField.getText().trim()));
+
+            if (guest == null) throw new Exception("Guest not found.");
+
+            Reservation newRes = new Reservation(guest, room, checkInPicker.getValue(), checkOutPicker.getValue());
+            newRes.confirm(); // Transitions status and creates Invoice
+
+            statusLabel.setText("Booking confirmed for Room #" + room.getRoomNum());
+            refreshTable();
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Booking Failed", e.getMessage());
+        }
+    }
+        private void showAlert(Alert.AlertType type, String title, String content) {
+            Alert alert = new Alert(type);
+            alert.setTitle(title);
+            alert.setHeaderText(null);
+            alert.setContentText(content);
+            alert.showAndWait();
+        }
+    }
