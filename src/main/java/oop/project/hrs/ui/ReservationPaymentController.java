@@ -1,10 +1,11 @@
 package oop.project.hrs.ui;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import oop.project.hrs.backend.*;
-
+import javafx.scene.control.cell.PropertyValueFactory;
 public class ReservationPaymentController {
 
     // Navigation Layers (StackPane children)
@@ -20,6 +21,12 @@ public class ReservationPaymentController {
     public void initialize() {
         // Initialize payment methods
         paymentMethodBox.getItems().addAll("CASH", "CREDIT_CARD", "ONLINE");
+        TableColumn<Reservation, String> roomCol = new TableColumn<>("Room");
+        roomCol.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
+        historyTable.getColumns().add(roomCol);
+        if (Database.getReservations() != null) {
+            historyTable.setItems(FXCollections.observableArrayList(Database.getReservations()));
+        }
         reservationView.setVisible(true);
         paymentView.setVisible(false);
     }
