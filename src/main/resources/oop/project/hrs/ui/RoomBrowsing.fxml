@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.project.hrs.ui.RoomsController">
+   <children>
+      <BorderPane layoutX="7.0" layoutY="6.0" prefHeight="387.0" prefWidth="584.0">
+         <top>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="roomPriceFilter" maxWidth="-Infinity" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin></TextField>
+                  <ComboBox fx:id="roomTypeFilter" layoutX="50.0" layoutY="50.0" prefHeight="27.0" prefWidth="180.0" promptText="Room Types" visibleRowCount="3">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin></ComboBox>
+                  <MenuButton fx:id="amenityFilter" mnemonicParsing="false" onAction="#handleAmenityFilter" text="MenuButton">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                        <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                        <CheckMenuItem fx:id="towelCheck" mnemonicParsing="false" text="Towel" />
+                        <CheckMenuItem fx:id="shampooCheck" mnemonicParsing="false" onAction="#handleAmenityFilter" text="Shampoo" />
+                        <CheckMenuItem fx:id="showergelCheck" mnemonicParsing="false" onAction="#handleAmenityFilter" text="Shower Gel" />
+                        <CheckMenuItem fx:id="slippersCheck" mnemonicParsing="false" onAction="#handleAmenityFilter" text="Slippers" />
+                        <CheckMenuItem fx:id="electronicSafeCheck" mnemonicParsing="false" onAction="#handleAmenityFilter" text="Electronic Safe" />
+                    </items>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </MenuButton>
+                  <Button mnemonicParsing="false" onAction="#handleFilter" text="Filter">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </top>
+         <center>
+            <TableView fx:id="roomsTable" prefHeight="288.0" prefWidth="584.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn fx:id="numberColumn" prefWidth="133.40000295639038" text="Room Number" />
+                <TableColumn fx:id="typeColumn" prefWidth="109.79998779296875" text="Type" />
+                  <TableColumn fx:id="priceColumn" prefWidth="119.80001831054688" text="Price" />
+                  <TableColumn fx:id="amenitiesColumn" prefWidth="153.60006713867188" text="Amenities" />
+              </columns>
+            </TableView>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
