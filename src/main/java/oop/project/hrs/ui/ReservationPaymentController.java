@@ -26,8 +26,14 @@ public class ReservationPaymentController {
     //NAVIGATION LOGIC (StackPane Switching)
     @FXML
     private void showPaymentScreen() {
-        reservationView.setVisible(false);
-        paymentView.setVisible(true);
+        Reservation selected = historyTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            totalAmountLabel.setText(String.format("%.2f", selected.calculateTotalPrice()));
+            reservationView.setVisible(false);
+            paymentView.setVisible(true);
+        } else {
+            showFeedback("Selection Error", "Please select a reservation to check out.");
+        }
     }
 
     @FXML
