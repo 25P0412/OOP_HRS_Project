@@ -10,9 +10,13 @@ public class ReservationPaymentController {
     // Navigation Layers
     @FXML private VBox reservationView;
     @FXML private GridPane paymentView;
+    @FXML private TableView<Reservation> historyTable;
+    @FXML private Label totalAmountLabel;
+    @FXML private ComboBox<String> paymentMethodBox;
 
     @FXML
     public void initialize() {
+        paymentMethodBox.getItems().addAll("CASH", "CREDIT_CARD", "ONLINE");
         reservationView.setVisible(true);
         paymentView.setVisible(false);
     }
