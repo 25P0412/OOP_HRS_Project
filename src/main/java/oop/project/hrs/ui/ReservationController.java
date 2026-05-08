@@ -82,6 +82,13 @@ public class ReservationController {
             stage.show();
         } catch (Exception e) { e.printStackTrace(); }
     }
+
+    private void clearFields() {
+        guestNameField.clear();
+        roomNumField.clear();
+        checkInPicker.setValue(null);
+        checkOutPicker.setValue(null);
+    }
         private void showAlert(Alert.AlertType type, String title, String content) {
             Alert alert = new Alert(type);
             alert.setTitle(title);
