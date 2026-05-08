@@ -43,6 +43,10 @@ public class ReservationPaymentController {
     }
     // BUSINESS LOGIC (Milestone 1 Integration)
     @FXML
+    private void handleNewReservation() {
+        showFeedback("Navigation", "Redirecting to Room Booking screen...");
+    }
+    @FXML
     private void handleCancelReservation() {
         Reservation selected = historyTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
