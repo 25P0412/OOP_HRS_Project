@@ -7,20 +7,23 @@ import oop.project.hrs.backend.*;
 
 public class ReservationPaymentController {
 
-    // Navigation Layers
+    // Navigation Layers (StackPane children)
     @FXML private VBox reservationView;
     @FXML private GridPane paymentView;
+    // Reservation Components
     @FXML private TableView<Reservation> historyTable;
+    // Payment Components
     @FXML private Label totalAmountLabel;
     @FXML private ComboBox<String> paymentMethodBox;
 
     @FXML
     public void initialize() {
+        // Initialize payment methods
         paymentMethodBox.getItems().addAll("CASH", "CREDIT_CARD", "ONLINE");
         reservationView.setVisible(true);
         paymentView.setVisible(false);
     }
-
+    //NAVIGATION LOGIC (StackPane Switching)
     @FXML
     private void showPaymentScreen() {
         reservationView.setVisible(false);
@@ -32,6 +35,7 @@ public class ReservationPaymentController {
         paymentView.setVisible(false);
         reservationView.setVisible(true);
     }
+    // BUSINESS LOGIC (Milestone 1 Integration)
     @FXML
     private void handleCancelReservation() {
         Reservation selected = historyTable.getSelectionModel().getSelectedItem();
@@ -45,13 +49,20 @@ public class ReservationPaymentController {
 
     @FXML
     private void handleConfirmPayment() {
-        if (paymentMethodBox.getValue() == null) {
+        String selectedMethod = paymentMethodBox.getValue();
+        if (selectedMethod == null) {
             showFeedback("Input Error", "Please select a payment method.");
             return;
         }
-        showFeedback("Payment Confirmed", "Your payment has been processed.");
+        try {
+            PaymentMethod method = PaymentMethod.valueOf(selectedMethod);
+            showFeedback("Payment Confirmed", "Processed via " + method);
+            showReservationScreen();
+        } catch (Exception e) {
+            showFeedback("Error", "Invalid payment method selected.");
+        }
     }
-
+// Feedback messages
     private void showFeedback(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
