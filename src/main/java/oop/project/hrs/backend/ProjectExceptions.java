@@ -74,4 +74,7 @@ public class ProjectExceptions {
             super("User balance of: '" + balance + "' is insufficient!");
         }
     }
+    public static class InvalidNumberOfGuestsException extends BaseException {
+        public InvalidNumberOfGuestsException() {super ("Number of guests must be between 3 and 5 inclusive!");}
+    }
 }

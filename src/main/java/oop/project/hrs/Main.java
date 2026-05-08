@@ -1,5 +1,6 @@
 package oop.project.hrs;
 
+import oop.project.hrs.backend.Database;
 import oop.project.hrs.ui.HRSApplication;
 
 public class Main {
