@@ -52,6 +52,7 @@ public class ReservationController {
 
             statusLabel.setText("Booking confirmed for Room #" + room.getRoomNum());
             refreshTable();
+            clearFields();
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Booking Failed", e.getMessage());
         }
