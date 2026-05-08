@@ -18,21 +18,6 @@
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin></ComboBox>
-                  <MenuButton fx:id="amenityFilter" mnemonicParsing="false" onAction="#handleAmenityFilter" text="MenuButton">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                      <MenuItem mnemonicParsing="false" text="Action 2" />
-                        <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                        <CheckMenuItem fx:id="towelCheck" mnemonicParsing="false" text="Towel" />
-                        <CheckMenuItem fx:id="shampooCheck" mnemonicParsing="false" onAction="#handleAmenityFilter" text="Shampoo" />
-                        <CheckMenuItem fx:id="showergelCheck" mnemonicParsing="false" onAction="#handleAmenityFilter" text="Shower Gel" />
-                        <CheckMenuItem fx:id="slippersCheck" mnemonicParsing="false" onAction="#handleAmenityFilter" text="Slippers" />
-                        <CheckMenuItem fx:id="electronicSafeCheck" mnemonicParsing="false" onAction="#handleAmenityFilter" text="Electronic Safe" />
-                    </items>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </MenuButton>
                   <Button mnemonicParsing="false" onAction="#handleFilter" text="Filter">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -47,7 +32,6 @@
                 <TableColumn fx:id="numberColumn" prefWidth="133.40000295639038" text="Room Number" />
                 <TableColumn fx:id="typeColumn" prefWidth="109.79998779296875" text="Type" />
                   <TableColumn fx:id="priceColumn" prefWidth="119.80001831054688" text="Price" />
-                  <TableColumn fx:id="amenitiesColumn" prefWidth="153.60006713867188" text="Amenities" />
               </columns>
             </TableView>
          </center>

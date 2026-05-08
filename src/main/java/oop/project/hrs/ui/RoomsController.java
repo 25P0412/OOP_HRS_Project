@@ -6,8 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
-import oop.project.hrs.backend.Amenity;
 import oop.project.hrs.backend.Rooms;
+
+import java.util.ArrayList;
 
 public class RoomsController {
     @FXML private ComboBox<String> roomTypeFilter;
@@ -16,21 +17,31 @@ public class RoomsController {
     @FXML private TableColumn<Rooms, Integer> numberColumn;
     @FXML private TableColumn<Rooms, String> typeColumn;
     @FXML private TableColumn<Rooms, Double> priceColumn;
-    @FXML private TableColumn<Rooms, String> amenitiesColumn;
-    @FXML private CheckMenuItem towelCheck;
-    @FXML private CheckMenuItem shampooCheck;
-    @FXML private CheckMenuItem showerGelCheck;
-    @FXML private CheckMenuItem slippersCheck;
-    @FXML private CheckMenuItem electronicSafeCheck;
 
     private ObservableList<Rooms> masterData = FXCollections.observableArrayList();
 
     @FXML private void handleFilter (ActionEvent event) {
+        String selectedType = roomTypeFilter.getValue();
+        String priceInput = roomPriceFilter.getText();
 
-    }
+        ObservableList<Rooms> filteredList = FXCollections.observableArrayList();
 
-    @FXML private void handleAmenityFilter (ActionEvent event) {
-
+        for (Rooms room : masterData) {
+            boolean typeMatch = (selectedType == null || selectedType.equals("All") || room.getRoomType().name().equalsIgnoreCase(selectedType));
+            boolean priceMatch = true;
+            if (priceInput != null && !priceInput.trim().isEmpty()) {
+                try {
+                    double maxPrice = Double.parseDouble(priceInput);
+                    priceMatch = room.getBasePrice() <= maxPrice;
+                } catch (NumberFormatException e) {
+                    priceMatch = true; // Skip filtering if input isn't a number
+                }
+            }
+            if (typeMatch && priceMatch) {
+                filteredList.add(room);
+            }
+        }
+        roomsTable.setItems(filteredList);
     }
 
     @FXML public void initialize() {
@@ -38,6 +49,12 @@ public class RoomsController {
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("roomType"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("basePrice"));
 
+        roomTypeFilter.getItems().addAll("All", "Single", "Double", "Suite");
+        roomTypeFilter.getSelectionModel().select("All");
 
+        roomsTable.setItems(masterData);
+    }
+    public void setRoomsData(ArrayList<Rooms> roomsList) {
+        masterData.setAll(roomsList);
     }
 }
