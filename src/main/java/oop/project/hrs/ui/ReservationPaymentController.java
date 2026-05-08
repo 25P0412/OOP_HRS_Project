@@ -32,4 +32,31 @@ public class ReservationPaymentController {
         paymentView.setVisible(false);
         reservationView.setVisible(true);
     }
+    @FXML
+    private void handleCancelReservation() {
+        Reservation selected = historyTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            Database.cancelReservation(selected);
+            showFeedback("Success", "Reservation cancelled successfully.");
+        } else {
+            showFeedback("Selection Error", "Please select a reservation to cancel.");
+        }
+    }
+
+    @FXML
+    private void handleConfirmPayment() {
+        if (paymentMethodBox.getValue() == null) {
+            showFeedback("Input Error", "Please select a payment method.");
+            return;
+        }
+        showFeedback("Payment Confirmed", "Your payment has been processed.");
+    }
+
+    private void showFeedback(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }
