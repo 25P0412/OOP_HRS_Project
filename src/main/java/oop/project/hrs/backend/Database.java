@@ -144,9 +144,35 @@ public class Database {
         hotelAmenities.removeIf (a -> a.getType().equalsIgnoreCase(type));
         refreshAllInvoices();
     }
-    //TODO: Filling the arrays with dummy test data
-
-    //CRUD opertions on A TYPE OF ROOM
+    //Filling the arrays with test data
+    {
+        //Add some rooms
+        addRoom(new singleRoom(1, new Guest("ahmed-mostafa", "ahm1", Gender.MALE, LocalDate.of(2007,7,8), 7800, "13 AlThawra St"), masterSingleAmenities));
+        addRoom(new doubleRoom(2, new Guest("nadaashraf22", "nada@00", Gender.FEMALE, LocalDate.of(2002, 12, 16), 5000, "7 AlHegaz St"), masterDoubleAmenities));
+        addRoom(new suiteRoom(3, 4, new Guest("salma123", "salemsalmaASU", Gender.FEMALE, LocalDate.of(2004, 7, 23), 9850, "15 AlBa7r St"), masterSuiteAmenities));
+        addRoom (new doubleRoom(4, new Guest("marly.emad00","zakhary678", Gender.FEMALE, LocalDate.of(2006, 12, 9), 3700, "23 Cleopatra St"), masterDoubleAmenities));
+        //Initialize the hotel amenities
+        addHotelAmenities(new Amenity("AC", 105.00, 7));
+        addHotelAmenities(new Amenity("Heated Pool", 89.20, 3));
+        addHotelAmenities(new Amenity("Jacuzzi", 250.50, 2));
+        //Initialize the amenities of each room type
+        addAmenityToType(RoomType.SINGLE, new Amenity("Towel", 70.00, 1));
+        addAmenityToType(RoomType.SINGLE, new Amenity("Shampoo", 55.00, 2));
+        addAmenityToType(RoomType.SINGLE, new Amenity("Shower Gel", 60.00, 2));
+        addAmenityToType(RoomType.SINGLE, new Amenity("Slippers", 93.40, 1));
+        addAmenityToType(RoomType.SINGLE, new Amenity("Electronic Safe", 105.30, 1));
+        addAmenityToType(RoomType.DOUBLE, new Amenity("Towel", 70.00, 2));
+        addAmenityToType(RoomType.DOUBLE, new Amenity("Shampoo", 55.00, 4));
+        addAmenityToType(RoomType.DOUBLE, new Amenity("Shower Gel", 60.00, 4));
+        addAmenityToType(RoomType.DOUBLE, new Amenity("Slippers", 93.40, 2));
+        addAmenityToType(RoomType.DOUBLE, new Amenity("Electronic Safe", 105.30, 1));
+        addAmenityToType(RoomType.SUITE, new Amenity("Towel", 70.00, 5));
+        addAmenityToType(RoomType.SUITE, new Amenity("Shampoo", 55.00, 10));
+        addAmenityToType(RoomType.SUITE, new Amenity("Shower Gel", 60.00, 10));
+        addAmenityToType(RoomType.SUITE, new Amenity("Slippers", 93.40, 10));
+        addAmenityToType(RoomType.SUITE, new Amenity("Electronic Safe", 105.30, 1));
+    }
+    //CRUD operations on A TYPE OF ROOM
     //MasterAmenities arrays' methods
     //CREATE
     public static void addAmenityToType (RoomType roomType, Amenity newAmenity) {
@@ -348,6 +374,67 @@ public class Database {
         }
         return null;
     }
+    static {
+        Guest g1 = new Guest("guest1", "pass1", Gender.MALE,
+                LocalDate.of(2000, 1, 1), 1234, "Cairo");
+        Guest g2 = new Guest("guest2", "pass2", Gender.FEMALE,
+                LocalDate.of(2001, 5, 10), 5678, "Giza");
+        Guest g3 = new Guest("guest3", "pass3", Gender.MALE,
+                LocalDate.of(1999, 8, 20), 9999, "Alex");
+
+        addGuest("guest1", g1);
+        addGuest("guest2", g2);
+        addGuest("guest3", g3);
+
+        addUsername("guest1");
+        addUsername("guest2");
+        addUsername("guest3");
+
+        //Reservation 1
+        Reservation r1 = new Reservation(
+                g1,
+                getRoomByNum(1),
+                LocalDate.now().plusDays(1),
+                LocalDate.now().plusDays(3)
+        );
+
+        r1.confirm();
+
+        r1.getInvoice().addPayment(
+                r1.getInvoice().getTotalAmount(),
+                PaymentMethod.CASH
+        );
+
+        // Reservation 2
+        Reservation r2 = new Reservation(
+                g2,
+                getRoomByNum(2),
+                LocalDate.now().plusDays(2),
+                LocalDate.now().plusDays(5)
+        );
+
+        r2.confirm();
+
+        Invoice inv2 = r2.getInvoice();
+        inv2.addPayment(200, PaymentMethod.CASH);
+        inv2.addPayment(inv2.getTotalAmount() - 200, PaymentMethod.CREDIT_CARD);
+
+        // Reservation 3
+        Reservation r3 = new Reservation(
+                g3,
+                getRoomByNum(3),
+                LocalDate.now().plusDays(3),
+                LocalDate.now().plusDays(6)
+        );
+
+        r3.confirm();
+
+        r3.getInvoice().addPayment(
+                r3.getInvoice().getTotalAmount(),
+                PaymentMethod.ONLINE
+        );
+    }
+
 
     public static List<Rooms> displayAvailableRooms() {
         List<Rooms> available = new ArrayList<>();
