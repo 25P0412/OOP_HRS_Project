@@ -24,12 +24,15 @@ public class ReservationPaymentController {
         TableColumn<Reservation, String> roomCol = new TableColumn<>("Room");
         roomCol.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
         historyTable.getColumns().add(roomCol);
-        if (Database.getReservations() != null) {
-            historyTable.setItems(FXCollections.observableArrayList(Database.getReservations()));
-        }
+        refreshTable();
         reservationView.setVisible(true);
         paymentView.setVisible(false);
     }
+        private void refreshTable(){
+            if (Database.getReservations() != null) {
+                historyTable.setItems(FXCollections.observableArrayList(Database.getReservations()));
+            }
+        }
     //NAVIGATION LOGIC (StackPane Switching)
     @FXML
     private void showPaymentScreen() {
@@ -58,6 +61,7 @@ public class ReservationPaymentController {
         Reservation selected = historyTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             Database.cancelReservation(selected);
+            refreshTable();
             showFeedback("Success", "Reservation cancelled successfully.");
         } else {
             showFeedback("Selection Error", "Please select a reservation to cancel.");
