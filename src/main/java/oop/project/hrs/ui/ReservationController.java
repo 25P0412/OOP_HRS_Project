@@ -4,10 +4,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import oop.project.hrs.backend.*;
+
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class ReservationController {
@@ -82,6 +88,34 @@ public class ReservationController {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception e) { e.printStackTrace(); }
+    }
+    @FXML
+    private void handleOpenPayment(ActionEvent event) {
+        // 1. Get the selected reservation from your TableView
+        Reservation selectedRes = reservationTable.getSelectionModel().getSelectedItem();
+
+        if (selectedRes == null) {
+            statusLabel.setText("Please select a reservation to checkout.");
+            return;
+        }
+
+        try {
+            // 2. Load the Payment FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PaymentView.fxml"));
+            Parent root = loader.load();
+
+            // 3. Get the PaymentController and PASS THE DATA
+            PaymentController controller = loader.getController();
+            controller.loadReservationData(selectedRes);
+
+            // 4. Switch the Scene
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            statusLabel.setText("Error loading payment screen: " + e.getMessage());
+        }
     }
 
     private void clearFields() {
