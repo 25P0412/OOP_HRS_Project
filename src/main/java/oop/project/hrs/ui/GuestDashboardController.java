@@ -2,7 +2,11 @@ package oop.project.hrs.ui;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import oop.project.hrs.backend.Guest;
 import oop.project.hrs.backend.Reservation;
 import oop.project.hrs.backend.Database;
@@ -12,17 +16,25 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class GuestDashboardController {
     @FXML private VBox dashboardHome;
     @FXML private Parent viewProfile;
+    @FXML private Parent payment;
+    @FXML private Parent reservation;
+    @FXML private Parent roomBrowsing;
     @FXML private GuestViewProfileController viewProfileController;
+    @FXML private ReservationController reservationController;
+    @FXML private RoomsController roomsController;
+    @FXML private PaymentController paymentController;
     @FXML private Label welcomeLabel;
     @FXML private Label balanceLabel;
     @FXML private Label statusLabel;
     @FXML private Label usernameLabel;
     @FXML private Label genderLabel;
+    @FXML private BorderPane mainContainer;
 
     @FXML private TableView<Reservation> reservationsTable;
     @FXML private TableColumn<Reservation, String> colRoom;
@@ -34,9 +46,9 @@ public class GuestDashboardController {
 
     @FXML
     public void initialize() {
-        colRoom.setCellValueFactory(new PropertyValueFactory<>("roomReference"));
-        colCheckIn.setCellValueFactory(new PropertyValueFactory<>("checkInDate"));
-        colCheckOut.setCellValueFactory(new PropertyValueFactory<>("checkOutDate"));
+        colRoom.setCellValueFactory(new PropertyValueFactory<>("room"));
+        colCheckIn.setCellValueFactory(new PropertyValueFactory<>("checkIn"));
+        colCheckOut.setCellValueFactory(new PropertyValueFactory<>("checkOut"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         statusLabel.setText("Dashboard Ready.");
@@ -67,8 +79,12 @@ public class GuestDashboardController {
     @FXML
         void handleHome() {
         viewProfile.setVisible(false);
+        roomBrowsing.setVisible(false);
+        payment.setVisible(false);
+        reservation.setVisible(false);
         dashboardHome.setVisible(true);
-        statusLabel.setText("Returned Home");
+        statusLabel.setText("Returned to Dashboard!");
+        refreshUI();
     }
     @FXML
     private void handleViewProfile() {
@@ -76,25 +92,72 @@ public class GuestDashboardController {
             viewProfileController.setGuest(currentGuest);
             viewProfileController.setMainController(this); // Pass reference for the Back button
         }
-
-        dashboardHome.setVisible(false);
         viewProfile.setVisible(true);
-
+        roomBrowsing.setVisible(false);
+        payment.setVisible(false);
+        reservation.setVisible(false);
+        dashboardHome.setVisible(false);
         statusLabel.setText("Viewing Profile");
     }
 
     @FXML
     private void handleBrowseRooms() {
         statusLabel.setText("Navigating to Room Browsing...");
-        // Logic to switch to roomBrowsing.fxml goes here
+        viewProfile.setVisible(false);
+        roomBrowsing.setVisible(true);
+        payment.setVisible(false);
+        reservation.setVisible(false);
+        dashboardHome.setVisible(false);
+        statusLabel.setText("Browsing Rooms!");
     }
 
+    @FXML
+    private void handleCheckout() {
+        statusLabel.setText("Navigating to Checkout...");
+        viewProfile.setVisible(false);
+        roomBrowsing.setVisible(false);
+        payment.setVisible(true);
+        reservation.setVisible(false);
+        dashboardHome.setVisible(false);
+        statusLabel.setText("Checkout!");
+    }
+    @FXML
+    private void handleReservations() {
+        statusLabel.setText("Navigating to Reservations...");
+        viewProfile.setVisible(false);
+        roomBrowsing.setVisible(false);
+        payment.setVisible(false);
+        reservation.setVisible(true);
+        dashboardHome.setVisible(false);
+        statusLabel.setText("Viewing Reservations");
+    }
     @FXML
     private void handleLogout() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to logout?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.YES) {
-                // Logic to return to login.fxml
+                try {
+                    // 1. Load the Login FXML
+                    // Note: Check your path carefully based on your package structure
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("login & register.fxml"));
+                    Parent root = loader.load();
+
+                    // 2. Get the current Stage from any node in your dashboard
+                    Stage stage = (Stage) mainContainer.getScene().getWindow();
+
+                    // 3. Switch the Scene
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.setTitle("Hotel Reservation System - Login");
+                    stage.show();
+
+                    // Optional: Print to console for verification
+                    System.out.println("User logged out successfully.");
+
+                } catch (IOException e) {
+                    System.out.println("Error: Could not return to Login screen.");
+                    e.printStackTrace();
+                }
             }
         });
     }
