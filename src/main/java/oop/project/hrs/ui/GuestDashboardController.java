@@ -137,21 +137,15 @@ public class GuestDashboardController {
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.YES) {
                 try {
-                    // 1. Load the Login FXML
-                    // Note: Check your path carefully based on your package structure
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("login & register.fxml"));
                     Parent root = loader.load();
-
-                    // 2. Get the current Stage from any node in your dashboard
                     Stage stage = (Stage) mainContainer.getScene().getWindow();
 
-                    // 3. Switch the Scene
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.setTitle("Hotel Reservation System - Login");
                     stage.show();
 
-                    // Optional: Print to console for verification
                     System.out.println("User logged out successfully.");
 
                 } catch (IOException e) {

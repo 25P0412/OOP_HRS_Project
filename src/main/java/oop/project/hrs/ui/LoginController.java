@@ -95,11 +95,9 @@ public class LoginController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GuestDashboard.fxml"));
             Parent root = loader.load();
-
             // Inject the guest into the dashboard controller
             GuestDashboardController controller = loader.getController();
             controller.setGuest(guest);
-
             // Get the current stage using one of the text fields
             Stage stage = (Stage) txt_username.getScene().getWindow();
             stage.setScene(new Scene(root));
