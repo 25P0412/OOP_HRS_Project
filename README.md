@@ -12,9 +12,10 @@
 </p>
 
 ## Features
-- Create and register new guests.
-- Create reservations.
-- Pay at checkout.
+- Elegant UI
+- Create and register new guests
+- Create and cancel reservations
+- Pay at checkout
 ## Contributers
 - [Ahmed Mostafa (25P0412)](https://github.com/25P0412)
 - [Salma Salem (25P0423)](https://github.com/slmy3401-stack)
