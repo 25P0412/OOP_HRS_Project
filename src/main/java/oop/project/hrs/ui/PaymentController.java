@@ -47,27 +47,48 @@ public class PaymentController {
     @FXML
     private void handleConfirmPayment() {
         try {
+            // user input
             double payAmount = Double.parseDouble(amountField.getText());
             PaymentMethod method = paymentMethodCombo.getValue();
 
+            // Validate input
             if (method == null) {
                 statusLabel.setText("Error: Select a payment method.");
+                // No specific error class in your CSS, so we use field-value
+                statusLabel.getStyleClass().setAll("label", "field-value");
                 return;
             }
 
-            // Apply payment to the invoice via backend logic
+            // Process payment in the Backend
             currentInvoice.addPayment(payAmount, method);
 
-            // Check if fully paid to update room status
-            if (currentInvoice.getTotalAmount() <= 0) {
+            // Update the Frontend labels
+            double remaining = currentInvoice.getTotalAmount() - currentInvoice.getPaidAmount();
+            totalPriceLabel.setText(String.format("$%.2f", remaining));
+            totalPriceLabel.getStyleClass().setAll("label", "balance-highlight");
+
+            // Check completion status
+            if (currentInvoice.isPaid()) {
+                // Update room status via Database
                 Database.updateRoomStatus(currentReservation.getRoom().getRoomNum(), Status.UNBOOKED);
+
                 statusLabel.setText("Payment Complete! Room " + currentReservation.getRoom().getRoomNum() + " is now free.");
+                statusLabel.getStyleClass().setAll("label", "field-value");
+
+                // Disable inputs to prevent further changes
+                amountField.setDisable(true);
+                paymentMethodCombo.setDisable(true);
             } else {
-                statusLabel.setText(String.format("Partial payment accepted. Remaining: $%.2f", currentInvoice.getTotalAmount()));
+                statusLabel.setText(String.format("Accepted $%.2f. Balance: $%.2f", payAmount, remaining));
+                statusLabel.getStyleClass().setAll("label", "field-value");
             }
 
+        } catch (ProjectExceptions.OverpaymentException e) {
+            statusLabel.setText("Error: Amount exceeds remaining balance.");
+            statusLabel.getStyleClass().setAll("label", "field-value");
         } catch (NumberFormatException e) {
             statusLabel.setText("Error: Please enter a valid number.");
+            statusLabel.getStyleClass().setAll("label", "field-value");
         }
     }
 }

@@ -16,7 +16,7 @@ public class HRSApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         /* Loading the new custom login and register view */
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ReservationDashboard.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login & register.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hotel Reservation System");
