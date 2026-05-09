@@ -104,6 +104,9 @@ public class Database {
     public static List<Rooms> getAllRooms() {
         return Collections.unmodifiableList(allRooms);
     }
+    public static ArrayList <Rooms> getRooms(){
+        return allRooms;
+    }
     //hotelAmenities array's methods
     //CREATE
     public static void addHotelAmenities (Amenity newAmenity){
