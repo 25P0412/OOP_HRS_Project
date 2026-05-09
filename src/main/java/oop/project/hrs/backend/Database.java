@@ -374,7 +374,29 @@ public class Database {
         }
         return null;
     }
-    static {
+
+    public static List<Rooms> displayAvailableRooms() {
+        List<Rooms> available = new ArrayList<>();
+        for (Rooms room : allRooms) {
+            if (room.getStatus() == Status.UNBOOKED) {
+                available.add(room);
+            }
+        }
+        return available;
+    }
+    public static Rooms getRoomByNum(int num) {
+        for (Rooms room : allRooms) {
+            if (room.getRoomNum() == num) {
+                return room;
+            }
+        }
+        return null;
+    }
+    //dummy data
+    public static ArrayList<Staff> allStaff = new ArrayList<>();
+    public static void prePopulateData() {
+        allStaff.add(new Admin("admin1", "pass123", Role.ADMIN, LocalDate.of(1990, 1, 1), 40));
+        allStaff.add(new Receptionist("recep1", "pass123", Role.RECEPTIONIST, LocalDate.of(1995, 5, 10), 45));
         Guest g1 = new Guest("guest1", "pass1", Gender.MALE,
                 LocalDate.of(2000, 1, 1), 1234, "Cairo");
         Guest g2 = new Guest("guest2", "pass2", Gender.FEMALE,
@@ -433,32 +455,6 @@ public class Database {
                 r3.getInvoice().getTotalAmount(),
                 PaymentMethod.ONLINE
         );
-    }
-
-
-    public static List<Rooms> displayAvailableRooms() {
-        List<Rooms> available = new ArrayList<>();
-        for (Rooms room : allRooms) {
-            if (room.getStatus() == Status.UNBOOKED) {
-                available.add(room);
-            }
-        }
-        return available;
-    }
-    public static Rooms getRoomByNum(int num) {
-        for (Rooms room : allRooms) {
-            if (room.getRoomNum() == num) {
-                return room;
-            }
-        }
-        return null;
-    }
-    //dummy data
-    public static ArrayList<Staff> allStaff = new ArrayList<>();
-    public static void prePopulateData() {
-        allStaff.add(new Admin("admin1", "pass123", Role.ADMIN, LocalDate.of(1990, 1, 1), 40));
-        allStaff.add(new Receptionist("recep1", "pass123", Role.RECEPTIONIST, LocalDate.of(1995, 5, 10), 45));
-
     }
     public static List<Staff> getStaff() {
         return allStaff;
