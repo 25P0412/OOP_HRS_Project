@@ -1,7 +1,11 @@
+
 # Hotel Reservation System
 *Hotel Reservation System written in **Java** and the **[JavaFX](https://openjfx.io/)** framework*
 ## Preview
-- TODO: Embed YouTube Video
+
+https://github.com/user-attachments/assets/4cac5757-3a8a-4986-9a7d-aa6ea763134e
+
+
 <p align="center">
   <img width="850" height="587" src="https://github.com/user-attachments/assets/98fc72ef-deed-4a05-887f-d1ead7641b44" />
   <img width="900" height="597" src="https://github.com/user-attachments/assets/293125b5-2bcc-403a-a4cb-028ab6f4d641" />
