@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import static oop.project.hrs.ui.DatabaseHelper.connect;
+
 //Rewrite using hashmaps
 public class Database {
     //Guests and usernames arrays' definition
@@ -391,48 +393,48 @@ public class Database {
         addUsername("guest3");
 
         //Reservation 1
-        Reservation r1 = new Reservation(
-                g1,
-                getRoomByNum(1),
-                LocalDate.now().plusDays(1),
-                LocalDate.now().plusDays(3)
-        );
+       // Reservation r1 = new Reservation(
+              //  g1,
+             //   getRoomByNum(1),
+             //   LocalDate.now().plusDays(1),
+              //  LocalDate.now().plusDays(3)
+        //);
 
-        r1.confirm();
+        //r1.confirm();
 
-        r1.getInvoice().addPayment(
-                r1.getInvoice().getTotalAmount(),
-                PaymentMethod.CASH
-        );
+        //r1.getInvoice().addPayment(
+              //  r1.getInvoice().getTotalAmount(),
+              //  PaymentMethod.CASH
+        //);
 
         // Reservation 2
-        Reservation r2 = new Reservation(
-                g2,
-                getRoomByNum(2),
-                LocalDate.now().plusDays(2),
-                LocalDate.now().plusDays(5)
-        );
+        //Reservation r2 = new Reservation(
+                //g2,
+                //getRoomByNum(2),
+                //LocalDate.now().plusDays(2),
+               // LocalDate.now().plusDays(5)
+        //);
 
-        r2.confirm();
+        //r2.confirm();
 
-        Invoice inv2 = r2.getInvoice();
-        inv2.addPayment(200, PaymentMethod.CASH);
-        inv2.addPayment(inv2.getTotalAmount() - 200, PaymentMethod.CREDIT_CARD);
+        //Invoice inv2 = r2.getInvoice();
+        //inv2.addPayment(200, PaymentMethod.CASH);
+        //inv2.addPayment(inv2.getTotalAmount() - 200, PaymentMethod.CREDIT_CARD);
 
         // Reservation 3
-        Reservation r3 = new Reservation(
-                g3,
-                getRoomByNum(3),
-                LocalDate.now().plusDays(3),
-                LocalDate.now().plusDays(6)
-        );
+        //Reservation r3 = new Reservation(
+          //      g3,
+            //    getRoomByNum(3),
+              //  LocalDate.now().plusDays(3),
+                //LocalDate.now().plusDays(6)
+        //);
 
-        r3.confirm();
+        //r3.confirm();
 
-        r3.getInvoice().addPayment(
-                r3.getInvoice().getTotalAmount(),
-                PaymentMethod.ONLINE
-        );
+        //r3.getInvoice().addPayment(
+          //      r3.getInvoice().getTotalAmount(),
+            //    PaymentMethod.ONLINE
+        //);
     }
 
 
@@ -462,4 +464,5 @@ public class Database {
     public static List<Staff> getStaff() {
         return allStaff;
     }
+
 }

@@ -39,18 +39,41 @@ public class RegisterController {
             LocalDate dob = reg_dob.getValue();
             Gender gender = reg_gender.getValue();
             String address = reg_address.getText();
+            double initialBalance = 0.0;
 
-            GuestAuth.register(user, pass, gender,dob,0.0, address);
+            String sql = "INSERT INTO guests(username, password, dob, gender, address, balance) VALUES(?,?,?,?,?,?)";
 
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Account created for: " + user);
+            try (java.sql.Connection conn = DatabaseHelper.connect();
+                 java.sql.PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                pstmt.setString(1, user);
+                pstmt.setString(2, pass);
+                pstmt.setString(3, dob.toString());
+                pstmt.setString(4, gender.toString());
+                pstmt.setString(5, address);
+                pstmt.setDouble(6, initialBalance);
+
+                pstmt.executeUpdate();
+                System.out.println("User saved to SQLite successfully!");
+
+            } catch (java.sql.SQLException e) {
+                if (e.getMessage().contains("UNIQUE")) {
+                    showAlert(Alert.AlertType.ERROR, "Error", "Username already exists!");
+                    return;
+                }
+                throw e;
+            }
+
+            GuestAuth.register(user, pass, gender, dob, initialBalance, address);
+            System.out.println("Guest registered in Auth system. User: " + user);
+
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Account created successfully!");
 
             Parent loginRoot = FXMLLoader.load(getClass().getResource("login & register.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(loginRoot));
             stage.setTitle("Hotel Login");
             stage.show();
-
-            System.out.println("Guest registered and switched to Login. Current Guests: " + Database.getGuestUsernames());
 
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Registration Failed", e.getMessage());
