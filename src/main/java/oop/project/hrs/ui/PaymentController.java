@@ -63,6 +63,7 @@ public class PaymentController {
                 statusLabel.setText("Payment Complete! Room " + currentReservation.getRoom().getRoomNum() + " is now free.");
             } else {
                 statusLabel.setText(String.format("Partial payment accepted. Remaining: $%.2f", currentInvoice.getTotalAmount()));
+                currentReservation.getGuest().setBalance(currentReservation.getGuest().getBalance() - currentInvoice.getTotalAmount());
             }
 
         } catch (NumberFormatException e) {
