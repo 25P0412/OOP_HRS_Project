@@ -76,4 +76,9 @@ public abstract class Rooms {
     public void deleteRoomAmenity (String type){
         this.roomAmenities.removeIf(a -> a.getType().equalsIgnoreCase(type));
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(roomType);
+    }
 }

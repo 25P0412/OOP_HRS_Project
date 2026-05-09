@@ -4,25 +4,22 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import oop.project.hrs.backend.Database;
-
 import java.io.IOException;
 
 public class HRSApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        /* Loading the new custom login and register view */
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login & register.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login & register.fxml")); //Change this one later to homepage.fxml
 
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hotel Reservation System");
+        Scene scene = new Scene(fxmlLoader.load(), 800, 500);
+        stage.setTitle("Hotel Reservation System - Login"); //Change this one too later
         stage.setScene(scene);
+        stage.setResizable(true);
         stage.show();
     }
 
     public static void main(String[] args) {
-        Database.prePopulateData();
         launch();
     }
 }

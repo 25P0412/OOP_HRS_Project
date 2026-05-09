@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import oop.project.hrs.backend.*;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.time.LocalDate;
 public class LoginController {
 
@@ -62,18 +63,18 @@ public class LoginController {
 
         if (Database.getGuestUsernames().contains(user)) {
             try {
-                Guest g = GuestAuth.login(user, pass);
+                Guest g = GuestAuth.login(user, pass); // This returns the Guest object from your backend
                 if (g != null) {
-                    showAlert(Alert.AlertType.INFORMATION, "Success", "Welcome Guest: " + user);
-                    return;
+                    // SUCCESS: We pass the Guest object 'g' to our transition method
+                    navigateToDashboard(g);
                 }
+                return;
             } catch (Exception e) {
                 showAlert(Alert.AlertType.ERROR, "Login Failed", "Wrong Password for Guest!");
-                return;
             }
         }
-
         showAlert(Alert.AlertType.ERROR, "Login Failed", "User not found! Please Register first.");
+
     }
 
     @FXML
@@ -86,6 +87,25 @@ public class LoginController {
             stage.show();
         } catch (Exception e) {
             System.out.println("Error: Could not load Register.fxml");
+            e.printStackTrace();
+        }
+    }
+
+    private void navigateToDashboard(Guest guest) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("GuestDashboard.fxml"));
+            Parent root = loader.load();
+            // Inject the guest into the dashboard controller
+            GuestDashboardController controller = loader.getController();
+            controller.setGuest(guest);
+            // Get the current stage using one of the text fields
+            Stage stage = (Stage) txt_username.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Guest Dashboard - " + guest.getUsername());
+            stage.show();
+
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "System Error", "Could not load Dashboard.");
             e.printStackTrace();
         }
     }
