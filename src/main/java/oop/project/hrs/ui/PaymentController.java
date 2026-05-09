@@ -54,7 +54,6 @@ public class PaymentController {
             // Validate input
             if (method == null) {
                 statusLabel.setText("Error: Select a payment method.");
-                // No specific error class in your CSS, so we use field-value
                 statusLabel.getStyleClass().setAll("label", "field-value");
                 return;
             }
@@ -62,12 +61,15 @@ public class PaymentController {
             // Process payment in the Backend
             currentInvoice.addPayment(payAmount, method);
 
-            // Update the Frontend labels
+            // 3. Update the Frontend labels
+            // Calculate the actual remaining balance
             double remaining = currentInvoice.getTotalAmount() - currentInvoice.getPaidAmount();
+
+            // Update the price label with the new balance
             totalPriceLabel.setText(String.format("$%.2f", remaining));
             totalPriceLabel.getStyleClass().setAll("label", "balance-highlight");
 
-            // Check completion status
+            // Check completion status using the Invoice state
             if (currentInvoice.isPaid()) {
                 // Update room status via Database
                 Database.updateRoomStatus(currentReservation.getRoom().getRoomNum(), Status.UNBOOKED);
@@ -79,7 +81,8 @@ public class PaymentController {
                 amountField.setDisable(true);
                 paymentMethodCombo.setDisable(true);
             } else {
-                statusLabel.setText(String.format("Accepted $%.2f. Balance: $%.2f", payAmount, remaining));
+                // Success case: Partial payment
+                statusLabel.setText(String.format("Partial payment accepted. Remaining: $%.2f", remaining));
                 statusLabel.getStyleClass().setAll("label", "field-value");
             }
 
@@ -88,6 +91,9 @@ public class PaymentController {
             statusLabel.getStyleClass().setAll("label", "field-value");
         } catch (NumberFormatException e) {
             statusLabel.setText("Error: Please enter a valid number.");
+            statusLabel.getStyleClass().setAll("label", "field-value");
+        } catch (Exception e) {
+            statusLabel.setText("Error: " + e.getMessage());
             statusLabel.getStyleClass().setAll("label", "field-value");
         }
     }
