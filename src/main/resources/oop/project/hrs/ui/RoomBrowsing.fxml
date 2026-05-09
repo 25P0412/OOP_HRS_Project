@@ -12,15 +12,15 @@
                <children>
                   <TextField fx:id="roomPriceFilter" maxWidth="-Infinity" HBox.hgrow="ALWAYS">
                      <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="60.0" />
                      </HBox.margin></TextField>
                   <ComboBox fx:id="roomTypeFilter" layoutX="50.0" layoutY="50.0" prefHeight="27.0" prefWidth="180.0" promptText="Room Types" visibleRowCount="3">
                      <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="100.0" top="60.0" />
                      </HBox.margin></ComboBox>
                   <Button mnemonicParsing="false" onAction="#handleFilter" text="Filter">
                      <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="60.0" />
                      </HBox.margin>
                   </Button>
                </children>
