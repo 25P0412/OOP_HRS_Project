@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox spacing="20" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="oop.project.hrs.ui.GuestViewProfileController"
+      styleClass="content-area" stylesheets="@style.css">
+
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Text text="My Profile" styleClass="section-title"/>
+    </HBox>
+
+    <Separator />
+
+    <GridPane hgap="15" vgap="15" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints minWidth="120" prefWidth="150"/>
+            <ColumnConstraints hgrow="ALWAYS" minWidth="200" />
+        </columnConstraints>
+
+        <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="field-label"/>
+        <Label fx:id="lblUsername" text="Loading..." GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="field-value"/>
+
+        <Label text="Date of Birth:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="field-label"/>
+        <Label fx:id="lblDOB" text="Loading..." GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="field-value"/>
+
+        <Label text="Gender:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="field-label"/>
+        <Label fx:id="lblGender" text="Loading..." GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="field-value"/>
+
+        <Label text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="field-label"/>
+        <Label fx:id="lblAddress" text="Loading..." GridPane.columnIndex="1" GridPane.rowIndex="3" wrapText="true" styleClass="field-value"/>
+
+        <Label text="Account Balance:" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="field-label"/>
+        <Label fx:id="lblBalance" text="0.00$" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="balance-highlight"/>
+
+        <Label text="Room Preferences:" GridPane.columnIndex="0" GridPane.rowIndex="5" styleClass="field-label"/>
+        <TextArea fx:id="txtPreferences" editable="false" prefHeight="80" wrapText="true"
+                  GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="text-area-display"/>
+    </GridPane>
+
+    <HBox spacing="15" alignment="CENTER_RIGHT">
+        <Button text="Edit Profile" fx:id="btnEdit" styleClass="button-secondary" onAction="#handleEditProfile"/>
+        <Button text="Close" fx:id="btnClose" styleClass="button-primary" onAction="#handleClose"/>
+    </HBox>
+
+</VBox>

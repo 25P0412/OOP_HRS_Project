@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.layout.StackPane?>
+<BorderPane fx:id="mainContainer" prefHeight="600.0" prefWidth="800.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.project.hrs.ui.GuestDashboardController">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" styleClass="header-section">
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+            <Text styleClass="header-text" text="Guest Dashboard" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="welcomeLabel" styleClass="welcome-text" text="Welcome, Guest!" />
+        </HBox>
+    </top>
+
+    <left>
+        <VBox spacing="15" styleClass="sidebar">
+            <padding>
+                <Insets bottom="20" left="10" right="10" top="20" />
+            </padding>
+            <Button fx:id="btnProfile" maxWidth="Infinity" onAction="#handleViewProfile" text="View Profile" />
+            <Button fx:id="btnBrowseRooms" maxWidth="Infinity" text="Browse Rooms" />
+            <Button fx:id="btnReservations" maxWidth="Infinity" text="My Reservations" />
+            <Region VBox.vgrow="ALWAYS" />
+            <Button fx:id="btnLogout" maxWidth="Infinity" styleClass="button-logout" text="Logout" />
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="contentStack">
+        <VBox fx:id="dashboardHome" spacing="20">
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+
+            <TitledPane collapsible="false" text="Account Summary">
+                <GridPane hgap="10" vgap="10">
+                    <Label text="Current Balance:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Label fx:id="balanceLabel" styleClass="balance-value" text="0.00$" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <Label fx:id="usernameLabel" text="N/A" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <Label text="Gender:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <Label fx:id="genderLabel" text="N/A" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+                </GridPane>
+            </TitledPane>
+
+            <VBox spacing="10" VBox.vgrow="ALWAYS">
+                <Label styleClass="section-title" text="Your Active Reservations" />
+                <TableView fx:id="reservationsTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colRoom" prefWidth="100" text="Room" />
+                        <TableColumn fx:id="colCheckIn" prefWidth="120" text="Check-In" />
+                        <TableColumn fx:id="colCheckOut" prefWidth="120" text="Check-Out" />
+                        <TableColumn fx:id="colStatus" prefWidth="100" text="Status" />
+                    </columns>
+                </TableView>
+            </VBox>
+        </VBox>
+        <fx:include fx:id="viewProfile" source="GuestViewProfile.fxml" visible="false" />
+        </StackPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="10" styleClass="footer">
+            <padding>
+                <Insets bottom="5" left="10" right="10" top="5" />
+            </padding>
+            <Label fx:id="statusLabel" text="System Ready" />
+        </HBox>
+    </bottom>
+</BorderPane>
