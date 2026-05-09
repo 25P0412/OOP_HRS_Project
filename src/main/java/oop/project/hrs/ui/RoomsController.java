@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
+import oop.project.hrs.backend.Database;
 import oop.project.hrs.backend.Rooms;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class RoomsController {
         String selectedType = roomTypeFilter.getValue();
         String priceInput = roomPriceFilter.getText();
 
-        ObservableList<Rooms> filteredList = FXCollections.observableArrayList();
+        ObservableList<Rooms> filteredList = FXCollections.observableArrayList(Database.getRooms());
 
         for (Rooms room : masterData) {
             boolean typeMatch = (selectedType == null || selectedType.equals("All") || room.getRoomType().name().equalsIgnoreCase(selectedType));
