@@ -114,6 +114,15 @@ public class GuestDashboardController {
     @FXML
     private void handleCheckout() {
         statusLabel.setText("Navigating to Checkout...");
+        Reservation selectedRes = reservationsTable.getSelectionModel().getSelectedItem();
+        if (selectedRes == null) {
+            statusLabel.setText("Error: Please select a reservation from the table first.");
+            return;
+        }
+        if (paymentController != null) {
+            paymentController.loadReservationData(selectedRes);
+        }
+        statusLabel.setText("Navigating to Checkout...");
         viewProfile.setVisible(false);
         roomBrowsing.setVisible(false);
         payment.setVisible(true);

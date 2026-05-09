@@ -38,7 +38,6 @@ public class PaymentController {
 
             long nights = ChronoUnit.DAYS.between(res.getCheckIn(), res.getCheckOut());
             nightsStayedLabel.setText(String.valueOf(nights));
-
             totalPriceLabel.setText(String.format("$%.2f", currentInvoice.getTotalAmount()));
             statusLabel.setText("Invoice loaded for " + res.getGuest().getUsername());
         }

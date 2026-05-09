@@ -379,7 +379,7 @@ public class Database {
         addAmenityToType(RoomType.SUITE, new Amenity("Electronic Safe", 105.30, 1));
 
         Guest g1 = new Guest("guest1", "pass1", Gender.MALE,
-                LocalDate.of(2000, 1, 1), 1234, "Cairo");
+                LocalDate.of(2000, 1, 1), 10234.44, "Cairo");
         Guest g2 = new Guest("guest2", "pass2", Gender.FEMALE,
                 LocalDate.of(2001, 5, 10), 5678, "Giza");
         Guest g3 = new Guest("guest3", "pass3", Gender.MALE,
