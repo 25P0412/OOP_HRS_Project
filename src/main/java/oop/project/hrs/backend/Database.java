@@ -104,6 +104,9 @@ public class Database {
     public static List<Rooms> getAllRooms() {
         return Collections.unmodifiableList(allRooms);
     }
+    public static ArrayList <Rooms> getRooms(){
+        return allRooms;
+    }
     //hotelAmenities array's methods
     //CREATE
     public static void addHotelAmenities (Amenity newAmenity){
@@ -143,34 +146,6 @@ public class Database {
     public static void deleteHotelAmenity (String type){
         hotelAmenities.removeIf (a -> a.getType().equalsIgnoreCase(type));
         refreshAllInvoices();
-    }
-    //Filling the arrays with test data
-    {
-        //Add some rooms
-        addRoom(new singleRoom(1, new Guest("ahmed-mostafa", "ahm1", Gender.MALE, LocalDate.of(2007,7,8), 7800, "13 AlThawra St"), masterSingleAmenities));
-        addRoom(new doubleRoom(2, new Guest("nadaashraf22", "nada@00", Gender.FEMALE, LocalDate.of(2002, 12, 16), 5000, "7 AlHegaz St"), masterDoubleAmenities));
-        addRoom(new suiteRoom(3, 4, new Guest("salma123", "salemsalmaASU", Gender.FEMALE, LocalDate.of(2004, 7, 23), 9850, "15 AlBa7r St"), masterSuiteAmenities));
-        addRoom (new doubleRoom(4, new Guest("marly.emad00","zakhary678", Gender.FEMALE, LocalDate.of(2006, 12, 9), 3700, "23 Cleopatra St"), masterDoubleAmenities));
-        //Initialize the hotel amenities
-        addHotelAmenities(new Amenity("AC", 105.00, 7));
-        addHotelAmenities(new Amenity("Heated Pool", 89.20, 3));
-        addHotelAmenities(new Amenity("Jacuzzi", 250.50, 2));
-        //Initialize the amenities of each room type
-        addAmenityToType(RoomType.SINGLE, new Amenity("Towel", 70.00, 1));
-        addAmenityToType(RoomType.SINGLE, new Amenity("Shampoo", 55.00, 2));
-        addAmenityToType(RoomType.SINGLE, new Amenity("Shower Gel", 60.00, 2));
-        addAmenityToType(RoomType.SINGLE, new Amenity("Slippers", 93.40, 1));
-        addAmenityToType(RoomType.SINGLE, new Amenity("Electronic Safe", 105.30, 1));
-        addAmenityToType(RoomType.DOUBLE, new Amenity("Towel", 70.00, 2));
-        addAmenityToType(RoomType.DOUBLE, new Amenity("Shampoo", 55.00, 4));
-        addAmenityToType(RoomType.DOUBLE, new Amenity("Shower Gel", 60.00, 4));
-        addAmenityToType(RoomType.DOUBLE, new Amenity("Slippers", 93.40, 2));
-        addAmenityToType(RoomType.DOUBLE, new Amenity("Electronic Safe", 105.30, 1));
-        addAmenityToType(RoomType.SUITE, new Amenity("Towel", 70.00, 5));
-        addAmenityToType(RoomType.SUITE, new Amenity("Shampoo", 55.00, 10));
-        addAmenityToType(RoomType.SUITE, new Amenity("Shower Gel", 60.00, 10));
-        addAmenityToType(RoomType.SUITE, new Amenity("Slippers", 93.40, 10));
-        addAmenityToType(RoomType.SUITE, new Amenity("Electronic Safe", 105.30, 1));
     }
     //CRUD operations on A TYPE OF ROOM
     //MasterAmenities arrays' methods
@@ -374,29 +349,7 @@ public class Database {
         }
         return null;
     }
-
-    public static List<Rooms> displayAvailableRooms() {
-        List<Rooms> available = new ArrayList<>();
-        for (Rooms room : allRooms) {
-            if (room.getStatus() == Status.UNBOOKED) {
-                available.add(room);
-            }
-        }
-        return available;
-    }
-    public static Rooms getRoomByNum(int num) {
-        for (Rooms room : allRooms) {
-            if (room.getRoomNum() == num) {
-                return room;
-            }
-        }
-        return null;
-    }
-    //dummy data
-    public static ArrayList<Staff> allStaff = new ArrayList<>();
-    public static void prePopulateData() {
-        allStaff.add(new Admin("admin1", "pass123", Role.ADMIN, LocalDate.of(1990, 1, 1), 40));
-        allStaff.add(new Receptionist("recep1", "pass123", Role.RECEPTIONIST, LocalDate.of(1995, 5, 10), 45));
+    static {
         Guest g1 = new Guest("guest1", "pass1", Gender.MALE,
                 LocalDate.of(2000, 1, 1), 1234, "Cairo");
         Guest g2 = new Guest("guest2", "pass2", Gender.FEMALE,
@@ -455,6 +408,39 @@ public class Database {
                 r3.getInvoice().getTotalAmount(),
                 PaymentMethod.ONLINE
         );
+    }
+
+
+    public static List<Rooms> displayAvailableRooms() {
+        List<Rooms> available = new ArrayList<>();
+        for (Rooms room : allRooms) {
+            if (room.getStatus() == Status.UNBOOKED) {
+                available.add(room);
+            }
+        }
+        return available;
+    }
+    public static Rooms getRoomByNum(int num) {
+        for (Rooms room : allRooms) {
+            if (room.getRoomNum() == num) {
+                return room;
+            }
+        }
+        return null;
+    }
+    //dummy data
+    public static ArrayList<Staff> allStaff = new ArrayList<>();
+    public static void prePopulateData() {
+        allStaff.add(new Admin("admin1", "pass123", Role.ADMIN, LocalDate.of(1990, 1, 1), 40));
+        allStaff.add(new Receptionist("recep1", "pass123", Role.RECEPTIONIST, LocalDate.of(1995, 5, 10), 45));
+        addRoom(new singleRoom(1, new Guest("ahmed-mostafa", "ahm1", Gender.MALE, LocalDate.of(2007,7,8), 7800, "13 AlThawra St"), masterSingleAmenities));
+        addRoom(new doubleRoom(2, new Guest("nadaashraf22", "nada@00", Gender.FEMALE, LocalDate.of(2002, 12, 16), 5000, "7 AlHegaz St"), masterDoubleAmenities));
+        addRoom(new suiteRoom(3, 4, new Guest("salma123", "salemsalmaASU", Gender.FEMALE, LocalDate.of(2004, 7, 23), 9850, "15 AlBa7r St"), masterSuiteAmenities));
+        addRoom (new doubleRoom(4, new Guest("marly.emad00","zakhary678", Gender.FEMALE, LocalDate.of(2006, 12, 9), 3700, "23 Cleopatra St"), masterDoubleAmenities));
+        //Initialize the hotel amenities
+        addHotelAmenities(new Amenity("AC", 105.00, 7));
+        addHotelAmenities(new Amenity("Heated Pool", 89.20, 3));
+        addHotelAmenities(new Amenity("Jacuzzi", 250.50, 2));
     }
     public static List<Staff> getStaff() {
         return allStaff;
